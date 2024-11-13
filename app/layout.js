@@ -6,18 +6,24 @@ import {
   UserButton
 } from '@clerk/nextjs'
 import './globals.css'
+import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
+import { AppSidebar } from '@/components/app-sidebar'
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en">
-        <body>
+        <body className='bg-gray-100'>
           {/* <SignedOut>
             <SignInButton />
           </SignedOut> */}
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
-          {children}
+
+           <SidebarProvider>
+      <AppSidebar />
+      <main>
+        <SidebarTrigger />
+        {children}
+      </main>
+    </SidebarProvider>
         </body>
       </html>
     </ClerkProvider>

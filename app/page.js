@@ -1,101 +1,72 @@
+"use client"
+import { UserButton, useUser } from "@clerk/nextjs";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import GlobalApi from "@/app/_utils/GlobalApi";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const { user } = useUser();
+  // console.log(user);
+  const [userList, setUserList] = useState([])
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+// "_id": "6729b279b668b26e0c4538d5",
+//     "clerkId": "6901",
+//     "__v": 0,
+//     "createdAt": "2024-11-05T05:51:53.547Z",
+//     "email": "ola@example.com",
+//     "name": "olaniyi arokoyu",
+//     "role": "user"
+
+
+
+  useEffect(() => {
+    // getAllUsers();
+   user && createUsers()
+    console.log('this is home')
+    
+  }, [])
+
+  const createUsers = async () => {
+    try {
+      const data = {
+          clerkId: user?.id,
+          name: user?.fullName,
+          email: user?.primaryEmailAddress?.emailAddress,
+          createdAt: user?.createdAt
+      }
+      GlobalApi.createUser(data).then(resp => {
+        console.log(resp)
+          console.log(resp)
+          console.log('user created')
+      })
+    } catch (error) {
+      console.log('user created')
+    }
+  }
+  
+  
+  const getAllUsers = async () => {
+    try {
+      GlobalApi.getUsers().then(resp => {
+        setUserList(resp.data)
+        console.log(resp.data)
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  return (
+    <div>
+      the home page
+      <p>welcome, {user?.firstName}</p>
+      <button onClick={getAllUsers} className="bg-black p-1 rounded text-white cursor-pointer">get user now</button>
+      <button onClick={createUsers}>test create User</button>
+      {userList.map((item) => {
+        return <div>{item?.clerkId}</div>
+      })}
+      <UserButton />
+      {/* <Button>ShadCN</Button> */}
     </div>
   );
 }
