@@ -1,4 +1,6 @@
+"use client"
 import React from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -21,9 +23,60 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { useUser } from "@clerk/nextjs"
+import GlobalApi from "@/app/_utils/GlobalApi"
 
 
 const CreateTaskDialog = () => {
+
+  const { user } = useUser();
+
+  const [title, setTitle] = useState('')
+  const [priority, setPriority] = useState('medium')
+  const [status, setStatus] = useState('Pending')
+  const [desc, setDesc] = useState('')
+
+  function handleTitle(e) {
+    setTitle(e.target.value)
+    console.log(title)
+  } function handlePriority(value) {
+    // console.log(value)
+    setPriority(value)
+    console.log(priority)
+  }function handleStatus(e) {
+    setStatus(e.target.value)
+    console.log(status)
+  }function handleDesc(e) {
+    setDesc(e.target.value)
+    console.log(desc)
+  }
+  function checkData() {
+    console.log(priority)
+  }
+
+  const createATask = async() => {
+    const data = {
+      userId: user?.id,
+      title: title,
+      description:desc,
+      status: status,
+      priority:priority,
+      createdAt: user?.createdAt
+    }
+
+    try {
+      GlobalApi.createTask(data).then(resp => {
+        console.log(resp)
+        console.log(resp.data)
+        console.log("task added")
+      })
+    } catch (error) {
+console.log(error)
+    }
+  }
+
+  // console.log(priority)
+
     return (
         <div>
     <Dialog>
@@ -35,8 +88,8 @@ const CreateTaskDialog = () => {
  Create new Tasks
       </Button>
                 </DialogTrigger>
-                <div className="p-10">
-      <DialogContent>
+                <div>
+      <DialogContent className="w-[90%] rounded-md">
         <DialogHeader>
           <DialogTitle className='text-left'>Create Task</DialogTitle>
           <DialogDescription className='text-left'>
@@ -44,49 +97,51 @@ const CreateTaskDialog = () => {
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-        <div className="grid w-full items-center gap-1.5">
+        <div className="grid w-[100%] items-center gap-1.5">
       <Label htmlFor="email">Title</Label>
-      <Input type="text" id="text" placeholder="Type title here" />
-    </div>
+      <Input onChange={handleTitle} type="text" id="text" placeholder="Type title here" />
+                </div>
     {/* <div className="grid w-full max-w-sm items-center gap-1.5">
       <Label htmlFor="email">Email</Label>
       <Input type="email" id="email" placeholder="Email" />
                     </div> */}
                     <div className="flex items-center gap-2">
-                    <Select>
+                    <Select onValueChange={setStatus}>
       <SelectTrigger className="">
-        <SelectValue placeholder="Select Status" />
+        <SelectValue  placeholder="Select Status" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Status</SelectLabel>
-          <SelectItem value="apple">Pending</SelectItem>
-          <SelectItem value="banana">Ongoing</SelectItem>
-          <SelectItem value="blueberry">Finished</SelectItem>
-          <SelectItem value="grapes">Failed</SelectItem>
+          <SelectItem value="pending">Pending</SelectItem>
+          <SelectItem value="ongoing">Ongoing</SelectItem>
+          <SelectItem value="completed">Completed</SelectItem>
+          <SelectItem value="failed">Failed</SelectItem>
         </SelectGroup>
       </SelectContent>
-                        </Select>
-                        
-                    <Select>
+                  </Select>
+                  <button>check select state</button>:{status}
+                      
+                  <Select onValueChange={setPriority}>
       <SelectTrigger className="">
         <SelectValue placeholder="Select Priority" />
       </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
+      <SelectContent >
+        <SelectGroup >
           <SelectLabel>Priority</SelectLabel>
-          <SelectItem value="apple">Low</SelectItem>
-          <SelectItem value="banana">Medium</SelectItem>
-          <SelectItem value="blueberry">High</SelectItem>
+          <SelectItem onClick={checkData}  value="low">Low</SelectItem>
+          <SelectItem value="medium">Medium</SelectItem>
+          <SelectItem onClick={checkData} value="high">High</SelectItem>
         </SelectGroup>
       </SelectContent>
-                        </Select>
+                        </Select> 
+          <button>check select state</button>:{priority}
                         </div>
         </div>
                 <DialogFooter>
                 <div className="grid w-full gap-2">
-      <Textarea placeholder="Type your Task description here." />
-      <Button>Create</Button>
+      <Textarea onChange={handleDesc} placeholder="Type your Task description here." />
+      <Button onClick={createATask}>Create</Button>
     </div>
           {/* <Button type="submit">Save changes</Button> */}
         </DialogFooter>

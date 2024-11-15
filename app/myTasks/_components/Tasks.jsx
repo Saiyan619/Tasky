@@ -1,7 +1,5 @@
 import React from 'react'
 import TaskCard from './TaskCard'
-import TaskInput from './TaskInput'
-import { Button } from '@/components/ui/button'
 import CreateTaskDialog from './CreateTaskDialog'
 
 const Tasks = () => {
