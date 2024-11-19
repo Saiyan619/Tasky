@@ -22,13 +22,14 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import Link from "next/link"
 
 
 // Menu items.
 const items = [
   {
     title: "Home",
-    url: "home",
+    url: "/home",
     icon: Home,
   },
   {
@@ -43,7 +44,7 @@ const items = [
   },
   {
     title: "My Tasks",
-    url: "myTasks",
+    url: "/myTasks",
     icon: Inbox,
   },
   {
@@ -64,6 +65,7 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
+                    {/* <Link href={'/'}></Link> */}
                     <a href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>

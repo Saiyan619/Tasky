@@ -1,41 +1,51 @@
+import * as React from "react"
+import { useRouter } from "next/navigation"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import React from "react";
 
-const TaskCard = () => {
+
+function TaskCard({ title, description, status, priority, TaskDbId }) {
+  const router = useRouter();
+  const handleSeeDetails = () => {
+    router.push(`/task/${TaskDbId}`)
+  }
+
   return (
-    <div className="text-left max-w-[300px] p-3 bg-white rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      <div className="flex gap-3">
-        <Badge>Mid</Badge>
-        <Badge variant={"outline"}>UI/UX</Badge>
-      </div>
-      <a href="#">
+    <Card className="w-[300px]">
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription className='flex gap-4'>
+          <Badge>{status}</Badge>
+          <Badge variant='secondary'>{priority}</Badge>
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="text-sm">{description?.slice(0, 100)}...</div>
+        <Link href={`/myTasks/${TaskDbId}`}> <Button onclick={handleSeeDetails} className='text-xs mt-5'>See More</Button></Link>
+      </CardContent>
+      <CardFooter className="flex justify-between text-xs">
         <div className="flex flex-col">
-          <h5 className=" text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-            Create shot Dribble
-          </h5>
-          <Button className="text-xs w-1/3" variant="link">
-            See Tasks details
-          </Button>
+          <span>Assigned to:</span>
+          <span>Me</span>
         </div>
-      </a>
-      <p className="mb-3 font-normal text-xs dark:text-gray-400">
-        Make student shots for students portfolio needs and your own portfolio
-        Make student shots for students portfolio needs and your own portfolio
-      </p>
-
-      <div className="flex items-center justify-between">
-        <div className="text-xs">
-          <span>Assigned</span>
-          <p>Me</p>
-        </div>
-        <div className="text-xs">
+        <div className="flex flex-col">
           <span>Deadline</span>
-          <p>24 jan 1:30</p>
+          <span>30 Nov 2024</span>
         </div>
-      </div>
-    </div>
-  );
-};
+      </CardFooter>
+    </Card>
+  )
+}
 
-export default TaskCard;
+export default TaskCard

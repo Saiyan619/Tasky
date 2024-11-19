@@ -50,11 +50,11 @@ const page = () => {
    }
   return (
     <div className='p-2'>
-      this the home page
-      <p>Welcome, {user?.fullName}</p>
-       <button onClick={createUsers} className="bg-black p-1 rounded text-white cursor-pointer">create user</button>
+      {/* this the home page */}
+      {/* <p>Welcome, {user?.fullName}</p> */}
+       {/* <button onClick={createUsers} className="bg-black p-1 rounded text-white cursor-pointer">create user</button> */}
 
-      <UserButton />
+      {/* <UserButton /> */}
           <div className='flex gap-2 flex-col w-full m-auto justify-center'>
           <Card />
               <Chart />
