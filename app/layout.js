@@ -52,26 +52,23 @@ export default function RootLayout({ children }) {
             
             <main>
             <Nav />
-            <div className="drawer lg:drawer-open z-10">
+            <div className="drawer lg:drawer-open">
               <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-              <label htmlFor="my-drawer-2" className="text-black pt-2 text-sm rounded-lg underline lg:hidden">
-      Open drawer 
-    </label>
+      {/* label former postion */}
   <div className="drawer-content flex flex-col items-center justify-center">
                 {/* Page content here */}
                 {children}
   </div>
   <div className="drawer-side">
                 <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
-                <ul className="menu bg-secondary text-base-content min-h-full w-60 p-4">
-  {items.map((list, index) => (
-    // <li key={index}>
-    //   <a href={list.url}>{list.title}</a>
-    // </li>
+                <ul className="menu lg:bg-white bg-secondary text-base-content min-h-full w-52 border p-4">
+                  {items.map((list, index) => (
+    <li key={index} >
     <a className='flex items-center mt-5 gap-2' href={list.url}>
     <list.icon />
     <span>{list.title}</span>
-  </a>
+                      </a>
+                      </li>
   ))}
 </ul>
 

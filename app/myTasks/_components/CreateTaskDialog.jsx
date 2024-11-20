@@ -120,7 +120,6 @@ console.log(error)
         </SelectGroup>
       </SelectContent>
                   </Select>
-                  <button>check select state</button>:{status}
                       
                   <Select onValueChange={setPriority}>
       <SelectTrigger className="">
@@ -135,7 +134,6 @@ console.log(error)
         </SelectGroup>
       </SelectContent>
                         </Select> 
-          <button>check select state</button>:{priority}
                         </div>
         </div>
                 <DialogFooter>

@@ -32,7 +32,7 @@ const Tasks = () => {
     }
   }
   return (
-    <div className='m-auto flex items-center justify-center flex-col'>
+    <div className='flex items-center justify-center flex-col'>
       <p>My Tasks</p>
       <CreateTaskDialog />
       <div className='flex items-center flex-wrap gap-3 mt-3'>

@@ -36,7 +36,7 @@ const chartConfig = {
 } 
  function Chart() {
      return (
-         <div className="bg-white p-4 lg w-full m-auto rounded-lg">
+         <div className="mt-5">
              <span>Work Time</span>
     <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
       <BarChart accessibilityLayer data={chartData}>

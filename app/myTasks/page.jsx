@@ -3,7 +3,7 @@ import Tasks from './_components/Tasks'
 
 const page = () => {
   return (
-    <div className='mr-16 z-0'>
+    <div className=''>
       <Tasks />
     </div>
   )

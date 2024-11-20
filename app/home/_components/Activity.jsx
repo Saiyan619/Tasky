@@ -13,37 +13,37 @@ import {
 
 const Activity = () => {
   return (
-    <div>
+    <div className='mt-5'>
       <Table>
-  <TableCaption>A list of your recent invoices.</TableCaption>
+  <TableCaption>A list of your recent Tasks.</TableCaption>
   <TableHeader>
     <TableRow>
-      <TableHead className="w-[100px]">Invoice</TableHead>
+      <TableHead className="w-[100px]">Tasks</TableHead>
       <TableHead>Status</TableHead>
-      <TableHead>Method</TableHead>
-      <TableHead className="text-right">Amount</TableHead>
+      <TableHead>Priority</TableHead>
+      <TableHead className="text-right">Created</TableHead>
     </TableRow>
   </TableHeader>
   <TableBody>
     <TableRow>
-      <TableCell className="font-medium">INV001</TableCell>
-      <TableCell>Paid</TableCell>
-      <TableCell>Credit Card</TableCell>
-      <TableCell className="text-right">$250.00</TableCell>
+      <TableCell className="font-medium">Task 1</TableCell>
+      <TableCell>Ongoing</TableCell>
+      <TableCell>Meduim</TableCell>
+      <TableCell className="text-right">29/11/24</TableCell>
           </TableRow>
           
           <TableRow>
-      <TableCell className="font-medium">INV001</TableCell>
-      <TableCell>Paid</TableCell>
-      <TableCell>Credit Card</TableCell>
-      <TableCell className="text-right">$250.00</TableCell>
+      <TableCell className="font-medium">Project 2</TableCell>
+      <TableCell>Finished</TableCell>
+      <TableCell>Extreme</TableCell>
+      <TableCell className="text-right">29/11/24</TableCell>
           </TableRow>
           
           <TableRow>
-      <TableCell className="font-medium">INV001</TableCell>
-      <TableCell>Paid</TableCell>
-      <TableCell>Credit Card</TableCell>
-      <TableCell className="text-right">$250.00</TableCell>
+      <TableCell className="font-medium">Project 3</TableCell>
+      <TableCell>Pending</TableCell>
+      <TableCell>Extreme</TableCell>
+      <TableCell className="text-right">29/11/24</TableCell>
     </TableRow>
   </TableBody>
 </Table>

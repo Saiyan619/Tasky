@@ -56,13 +56,30 @@ import React from 'react'
 
 const Card = () => {
   return (
-    <div>
-      <div className="card bg-base-100 w-96 shadow-xl">
+    <div className='flex items-center gap-1 mt-5'>
+      <div className="card bg-base-100 w-28 shadow-xl lg:w-40 lg:h-40 ">
   <div className="card-body">
-    <h2 className="card-title">Card title!</h2>
-    <p>If a dog chews shoes whose shoes does he choose?</p>
-    <div className="card-actions justify-end">
-      <button className="btn btn-primary">Buy Now</button>
+    <h2 className="card-title text-2xl">50</h2>
+    <div className="card-actions justify-start">
+      <span className='text-sm'>Total</span>
+    </div>
+  </div>
+      </div>
+
+      <div className="card bg-base-100 w-28 shadow-xl lg:w-40 lg:h-40">
+  <div className="card-body">
+    <h2 className="card-title text-2xl">20</h2>
+    <div className="card-actions justify-start">
+      <span className='text-sm'>Ongoing</span>
+    </div>
+  </div>
+      </div>
+
+      <div className="card bg-base-100 w-28 shadow-xl lg:w-40 lg:h-40">
+  <div className="card-body">
+    <h2 className="card-title text-2xl">30</h2>
+    <div className="card-actions justify-start">
+      <span className='text-sm'>Finished</span>
     </div>
   </div>
 </div>

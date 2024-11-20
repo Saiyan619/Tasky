@@ -71,4 +71,7 @@ module.exports = {
 		require("tailwindcss-animate"),
 		require('daisyui'),
 	],
+	daisyui: {
+		themes: ["light"], // Enable only the light theme
+	  },
 };
