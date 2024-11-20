@@ -32,10 +32,8 @@ const Tasks = () => {
     }
   }
   return (
-    <div>
-      {/* <TaskInput /> */}
+    <div className='m-auto flex items-center justify-center flex-col'>
       <p>My Tasks</p>
-      {/* <Button onClick={getTaskById}>get all task</Button> */}
       <CreateTaskDialog />
       <div className='flex items-center flex-wrap gap-3 mt-3'>
         {user && allTasks.map((item) => {

@@ -148,9 +148,9 @@ import React from 'react'
   
   const Nav = () => {
     return (
-        <div className='p-2 w-full'>
-<nav className="bg-white border-gray-200 dark:bg-gray-900 rounded-md">
-  <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <div className=''>
+<nav className="bg-white border-gray-200 dark:bg-gray-900 rounded-md p-2 w-full">
+  <div className=" flex flex-wrap items-center justify-between mx-auto">
   <a href="https://flowbite.com/" className="flex items-center space-x-3 rtl:space-x-reverse">
       <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Tasky</span>
   </a>
