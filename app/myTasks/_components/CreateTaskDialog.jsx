@@ -25,12 +25,15 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { useUser } from "@clerk/nextjs"
 import GlobalApi from "@/app/_utils/GlobalApi"
+import { Loader2 } from "lucide-react"
 
 
 const CreateTaskDialog = () => {
 
   const { user } = useUser();
 
+  const [toastVisible, setToastVisible] = useState(false);
+  const [loading, setLoading] = useState(false)
   const [title, setTitle] = useState('')
   const [priority, setPriority] = useState('medium')
   const [status, setStatus] = useState('Pending')
@@ -69,18 +72,49 @@ const CreateTaskDialog = () => {
         console.log(resp)
         console.log(resp.data)
         console.log("task added")
+        // Show toast message
+        setLoading(true)
+        setToastVisible(true);
+
+        // Clear input fields
+        setTitle("");
+        setDesc("");
+        setStatus("");
+        setPriority("");
+
+        // Hide toast after 3 seconds
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
+        // Hide toast after 3 seconds
+        setTimeout(() => {
+          setToastVisible(false);
+        }, 5000);
+      
       })
+
     } catch (error) {
 console.log(error)
     }
+
   }
 
   // console.log(priority)
 
     return (
-        <div>
+      <div>
+          {toastVisible && (
+        <div className="toast toast-top toast-end">
+          <div className="alert alert-success">
+            <span>Task Created successfully.</span>
+          </div>
+        </div>
+      )}
+
+       
     <Dialog>
-      <DialogTrigger asChild>
+          <DialogTrigger asChild>
+         
       <Button className='mt-5 text-xs text-white'>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
   <path fillRule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
@@ -138,8 +172,12 @@ console.log(error)
         </div>
                 <DialogFooter>
                 <div className="grid w-full gap-2">
-      <Textarea onChange={handleDesc} placeholder="Type your Task description here." />
-      <Button onClick={createATask}>Create</Button>
+                  <Textarea onChange={handleDesc} placeholder="Type your Task description here." />
+               
+                  <Button onClick={createATask} disabled={loading}>
+                    {loading &&  <Loader2 className="animate-spin" /> }
+                    {loading ? "Please wait" : "Create"}
+    </Button>
     </div>
           {/* <Button type="submit">Save changes</Button> */}
         </DialogFooter>
