@@ -37,6 +37,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { useUser } from "@clerk/nextjs"
 import GlobalApi from "@/app/_utils/GlobalApi"
 import { Loader2 } from "lucide-react"
+import { Collaborators } from "./Collaborators"
 
 
 const CreateTaskDialog = ({getTaskById}) => {
@@ -207,7 +208,10 @@ console.log(error)
       </PopoverContent>
               </Popover>
               {/* ///////////////////////////////////////// */}
-                <DialogFooter>
+
+              <Collaborators />
+
+              <DialogFooter>
                 <div className="grid w-full gap-2">
                   <Textarea onChange={handleDesc} placeholder="Type your Task description here." />
                
