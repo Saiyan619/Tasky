@@ -2,6 +2,7 @@ import * as React from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import moment from 'moment/moment';
 import {
   Card,
   CardContent,
@@ -15,7 +16,8 @@ import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge";
 
 
-function TaskCard({ title, description, status, priority, TaskDbId }) {
+function TaskCard({ title, description, status, dueDate, priority, TaskDbId }) {
+  const formatDate = (isoString) => moment(isoString).format('MMMM Do YYYY')
   const router = useRouter();
   const handleSeeDetails = () => {
     router.push(`/task/${TaskDbId}`)
@@ -41,7 +43,8 @@ function TaskCard({ title, description, status, priority, TaskDbId }) {
         </div>
         <div className="flex flex-col">
           <span>Deadline</span>
-          <span>30 Nov 2024</span>
+          {/* {taskDetails?.createdAt ? formatDate(taskDetails.createdAt) : 'No date available'} */}
+          <span>{dueDate ? formatDate(dueDate) : 'No date available'}</span>
         </div>
       </CardFooter>
     </Card>

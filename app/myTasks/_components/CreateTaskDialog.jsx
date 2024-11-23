@@ -49,6 +49,7 @@ const CreateTaskDialog = ({getTaskById}) => {
   const [priority, setPriority] = useState('medium')
   const [status, setStatus] = useState('Pending')
   const [desc, setDesc] = useState('')
+  const [dueDate, setDueDate] = useState(null)
   const [date, setDate] = useState(null);
 
   function handleTitle(e) {
@@ -75,6 +76,7 @@ const CreateTaskDialog = ({getTaskById}) => {
       title: title,
       description:desc,
       status: status,
+      dueDate:dueDate,
       priority:priority,
       createdAt: user?.createdAt
     }
@@ -192,14 +194,14 @@ console.log(error)
           )}
         >
           <CalendarIcon />
-          {date ? format(date, "PPP") : <span>Pick a Deadline</span>}
+          {dueDate ? format(dueDate, "PPP") : <span>Pick a Deadline</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
         <Calendar
           mode="single"
-          selected={date}
-          onSelect={setDate}
+          selected={dueDate}
+          onSelect={setDueDate}
           initialFocus
         />
       </PopoverContent>

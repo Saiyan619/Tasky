@@ -42,6 +42,7 @@ const Tasks = () => {
             title={item.title}
             description={item.description}
             status={item.status}
+            dueDate={item.dueDate}
             priority={item.priority}
             
           />

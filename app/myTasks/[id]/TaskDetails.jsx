@@ -55,7 +55,8 @@ export default function TaskDetails({taskDetails}) {
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false)
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
     const [isCompleteDialogOpen, setIsCompleteDialogOpen] = useState(false)
-    const formatDate = (isoString) => moment(isoString).format('MMMM Do YYYY, h:mm:ss a');
+    // const formatDate = (isoString) => moment(isoString).format('MMMM Do YYYY, h:mm:ss a');
+    const formatDate = (isoString) => moment(isoString).format('MMMM Do YYYY');
 
 
   const handleSaveTask = (updatedTask) => {
