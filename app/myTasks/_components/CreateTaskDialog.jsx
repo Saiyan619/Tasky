@@ -19,7 +19,18 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue,
-  } from "@/components/ui/select"
+} from "@/components/ui/select"
+  
+import { format } from "date-fns"
+import { CalendarIcon } from "lucide-react"
+ 
+import { cn } from "@/lib/utils"
+import { Calendar } from "@/components/ui/calendar"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
@@ -28,7 +39,7 @@ import GlobalApi from "@/app/_utils/GlobalApi"
 import { Loader2 } from "lucide-react"
 
 
-const CreateTaskDialog = () => {
+const CreateTaskDialog = ({getTaskById}) => {
 
   const { user } = useUser();
 
@@ -38,6 +49,7 @@ const CreateTaskDialog = () => {
   const [priority, setPriority] = useState('medium')
   const [status, setStatus] = useState('Pending')
   const [desc, setDesc] = useState('')
+  const [date, setDate] = useState(null);
 
   function handleTitle(e) {
     setTitle(e.target.value)
@@ -75,6 +87,7 @@ const CreateTaskDialog = () => {
         // Show toast message
         setLoading(true)
         setToastVisible(true);
+        getTaskById()
 
         // Clear input fields
         setTitle("");
@@ -135,10 +148,7 @@ console.log(error)
       <Label htmlFor="email">Title</Label>
       <Input onChange={handleTitle} type="text" id="text" placeholder="Type title here" />
                 </div>
-    {/* <div className="grid w-full max-w-sm items-center gap-1.5">
-      <Label htmlFor="email">Email</Label>
-      <Input type="email" id="email" placeholder="Email" />
-                    </div> */}
+    
                     <div className="flex items-center gap-2">
                     <Select onValueChange={setStatus}>
       <SelectTrigger className="">
@@ -169,7 +179,32 @@ console.log(error)
       </SelectContent>
                         </Select> 
                         </div>
-        </div>
+              </div>
+              
+              {/* /////////////////////////////// */}
+              <Popover>
+      <PopoverTrigger asChild>
+        <Button
+          variant={"outline"}
+          className={cn(
+            "w-[240px] justify-start text-left font-normal",
+            !date && "text-muted-foreground"
+          )}
+        >
+          <CalendarIcon />
+          {date ? format(date, "PPP") : <span>Pick a Deadline</span>}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-auto p-0" align="start">
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={setDate}
+          initialFocus
+        />
+      </PopoverContent>
+              </Popover>
+              {/* ///////////////////////////////////////// */}
                 <DialogFooter>
                 <div className="grid w-full gap-2">
                   <Textarea onChange={handleDesc} placeholder="Type your Task description here." />

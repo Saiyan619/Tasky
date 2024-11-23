@@ -9,7 +9,9 @@ const getUsers = () => axiosClient.get('/user')
 const getUserByClerkId = (clerkId) => axiosClient.get('/user/' + clerkId);
 const createTask = (data) => axiosClient.post('/task', data);
 const getTaskByClerkId = (clerkId) => axiosClient.get('/task/user/' + clerkId);
-const getTaskDetails = (id)=> axiosClient.get('/task/taskInfo/' + id)
+const getTaskDetails = (id) => axiosClient.get('/task/taskInfo/' + id)
+const updateTask = (id, data) => axiosClient.put(`/task/editTask/${id}`, data);
+const deleteTask = (id) => axiosClient.delete('/task/deleteTask/' + id);
 
 
 export default {
@@ -18,6 +20,8 @@ export default {
     getUserByClerkId,
     createTask,
     getTaskByClerkId,
-    getTaskDetails
+    getTaskDetails,
+    updateTask,
+    deleteTask
 }
 

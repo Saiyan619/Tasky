@@ -34,7 +34,7 @@ const Tasks = () => {
   return (
     <div className='flex items-center justify-center flex-col'>
       <p>My Tasks</p>
-      <CreateTaskDialog />
+      <CreateTaskDialog getTaskById={getTaskById} />
       <div className='flex items-center flex-wrap gap-3 mt-3'>
         {user && allTasks.map((item) => {
           return <TaskCard
