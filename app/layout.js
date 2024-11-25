@@ -5,6 +5,7 @@ import {
   SignedOut,
   UserButton
 } from '@clerk/nextjs'
+import {NextUIProvider} from "@nextui-org/react";
 import './globals.css'
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/app-sidebar'
@@ -56,8 +57,10 @@ export default function RootLayout({ children }) {
               <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       {/* label former postion */}
   <div className="drawer-content flex flex-col items-center justify-center">
-                {/* Page content here */}
-                {children}
+                  {/* Page content here */}
+                  <NextUIProvider>
+                  {children}
+                  </NextUIProvider>
   </div>
   <div className="drawer-side">
                 <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
@@ -77,6 +80,6 @@ export default function RootLayout({ children }) {
       </main>
         </body>
       </html>
-    </ClerkProvider>
+      </ClerkProvider>
   )
 }
