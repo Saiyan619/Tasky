@@ -1,388 +1,329 @@
-// "use client"
-// import React from "react"
-// import { useState } from "react"
-// import { Button } from "@/components/ui/button"
-// import {
-//   Dialog,
-//   DialogContent,
-//   DialogDescription,
-//   DialogFooter,
-//   DialogHeader,
-//   DialogTitle,
-//   DialogTrigger,
-// } from "@/components/ui/dialog"
-// import {
-//     Select,
-//     SelectContent,
-//     SelectGroup,
-//     SelectItem,
-//     SelectLabel,
-//     SelectTrigger,
-//     SelectValue,
-// } from "@/components/ui/select"
-  
-// import { format } from "date-fns"
-// import { CalendarIcon } from "lucide-react"
- 
-// import { cn } from "@/lib/utils"
-// import { Calendar } from "@/components/ui/calendar"
-// import {
-//   Popover,
-//   PopoverContent,
-//   PopoverTrigger,
-// } from "@/components/ui/popover"
-// import { Input } from "@/components/ui/input"
-// import { Label } from "@/components/ui/label"
-// import { Textarea } from "@/components/ui/textarea"
-// import { useUser } from "@clerk/nextjs"
-// import GlobalApi from "@/app/_utils/GlobalApi"
-// import { Loader2 } from "lucide-react"
-// import Collaborators from "./Collaborators"
-
-
-// const CreateTaskDialog = ({getTaskById}) => {
-
-//   const { user } = useUser();
-
-//   const [toastVisible, setToastVisible] = useState(false);
-//   const [loading, setLoading] = useState(false)
-//   const [title, setTitle] = useState('')
-//   const [priority, setPriority] = useState('medium')
-//   const [status, setStatus] = useState('Pending')
-//   const [desc, setDesc] = useState('')
-//   const [dueDate, setDueDate] = useState(null)
-//   const [date, setDate] = useState(null);
-
-//   function handleTitle(e) {
-//     setTitle(e.target.value)
-//     console.log(title)
-//   } function handlePriority(value) {
-//     // console.log(value)
-//     setPriority(value)
-//     console.log(priority)
-//   }function handleStatus(e) {
-//     setStatus(e.target.value)
-//     console.log(status)
-//   }function handleDesc(e) {
-//     setDesc(e.target.value)
-//     console.log(desc)
-//   }
-//   function checkData() {
-//     console.log(priority)
-//   }
-
-//   const createATask = async() => {
-//     const data = {
-//       userId: user?.id,
-//       title: title,
-//       description:desc,
-//       status: status,
-//       dueDate:dueDate,
-//       priority:priority,
-//       createdAt: user?.createdAt
-//     }
-
-//     try {
-//       GlobalApi.createTask(data).then(resp => {
-//         console.log(resp)
-//         console.log(resp.data)
-//         console.log("task added")
-//         // Show toast message
-//         setLoading(true)
-//         setToastVisible(true);
-//         getTaskById()
-
-//         // Clear input fields
-//         setTitle("");
-//         setDesc("");
-//         setStatus("");
-//         setPriority("");
-
-//         // Hide toast after 3 seconds
-//         setTimeout(() => {
-//           setLoading(false);
-//         }, 2000);
-//         // Hide toast after 3 seconds
-//         setTimeout(() => {
-//           setToastVisible(false);
-//         }, 5000);
-      
-//       })
-
-//     } catch (error) {
-// console.log(error)
-//     }
-
-//   }
-
-//   // console.log(priority)
-
-//     return (
-//       <div>
-//           {toastVisible && (
-//         <div className="toast toast-top toast-end">
-//           <div className="alert alert-success">
-//             <span>Task Created successfully.</span>
-//           </div>
-//         </div>
-//       )}
-
-       
-//     <Dialog>
-//           <DialogTrigger asChild>
-         
-//       <Button className='mt-5 text-xs text-white'>
-//       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
-//   <path fillRule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
-// </svg>
-//  Create new Tasks
-//       </Button>
-//                 </DialogTrigger>
-//                 <div>
-//       <DialogContent className="w-[90%] rounded-md">
-//         <DialogHeader>
-//           <DialogTitle className='text-left'>Create Task</DialogTitle>
-//           <DialogDescription className='text-left'>
-//             Create Tasks to work on here. Click Create when you're done.
-//           </DialogDescription>
-//         </DialogHeader>
-//         <div className="grid gap-4 py-4">
-//         <div className="grid w-[100%] items-center gap-1.5">
-//       <Label htmlFor="email">Title</Label>
-//       <Input onChange={handleTitle} type="text" id="text" placeholder="Type title here" />
-//                 </div>
-    
-//                     <div className="flex items-center gap-2">
-//                     <Select onValueChange={setStatus}>
-//       <SelectTrigger className="">
-//         <SelectValue  placeholder="Select Status" />
-//       </SelectTrigger>
-//       <SelectContent>
-//         <SelectGroup>
-//           <SelectLabel>Status</SelectLabel>
-//           <SelectItem value="pending">Pending</SelectItem>
-//           <SelectItem value="ongoing">Ongoing</SelectItem>
-//           <SelectItem value="completed">Completed</SelectItem>
-//           <SelectItem value="failed">Failed</SelectItem>
-//         </SelectGroup>
-//       </SelectContent>
-//                   </Select>
-                      
-//                   <Select onValueChange={setPriority}>
-//       <SelectTrigger className="">
-//         <SelectValue placeholder="Select Priority" />
-//       </SelectTrigger>
-//       <SelectContent >
-//         <SelectGroup >
-//           <SelectLabel>Priority</SelectLabel>
-//           <SelectItem onClick={checkData}  value="low">Low</SelectItem>
-//           <SelectItem value="medium">Medium</SelectItem>
-//           <SelectItem onClick={checkData} value="high">High</SelectItem>
-//         </SelectGroup>
-//       </SelectContent>
-//                         </Select>
-//                         </div>
-//               </div>
-              
-//               {/* /////////////////////////////// */}
-//               <Popover>
-//       <PopoverTrigger asChild>
-//         <Button
-//           variant={"outline"}
-//           className={cn(
-//             "w-[240px] justify-start text-left font-normal",
-//             !date && "text-muted-foreground"
-//           )}
-//         >
-//           <CalendarIcon />
-//           {dueDate ? format(dueDate, "PPP") : <span>Pick a Deadline</span>}
-//         </Button>
-//       </PopoverTrigger>
-//       <PopoverContent className="w-auto p-0" align="start">
-//         <Calendar
-//           mode="single"
-//           selected={dueDate}
-//           onSelect={setDueDate}
-//           initialFocus
-//         />
-//       </PopoverContent>
-//               </Popover>
-//               {/* ///////////////////////////////////////// */}
-
-//               <Collaborators />
-
-
-
-//               <DialogFooter>
-//                 <div className="grid w-full gap-2">
-//                   <Textarea onChange={handleDesc} placeholder="Type your Task description here." />
-               
-//                   <Button onClick={createATask} disabled={loading}>
-//                     {loading &&  <Loader2 className="animate-spin" /> }
-//                     {loading ? "Please wait" : "Create"}
-//     </Button>
-//     </div>
-//           {/* <Button type="submit">Save changes</Button> */}
-//         </DialogFooter>
-//                     </DialogContent>
-//                     </div>
-//             </Dialog>
-//             </div>
-//   )
-// }
-
-
-// export default CreateTaskDialog
-
-
 import React from 'react'
+import { useState } from "react"
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Checkbox, Input, Link} from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
 import { Avatar, Chip } from "@nextui-org/react";
 import { users } from './data';
-import {Textarea} from "@nextui-org/react";
+import { Textarea } from "@nextui-org/react";
+import {DatePicker} from "@nextui-org/react";
+import {parseDate, getLocalTimeZone} from "@internationalized/date";
+import { useDateFormatter } from "@react-aria/i18n";
+import GlobalApi from "@/app/_utils/GlobalApi"
+import { useUser } from "@clerk/nextjs"
 
 
 
-const CreateTaskDialog = () => {
+
+const CreateTaskDialog = ({getTaskById, userList}) => {
+
+  const { user } = useUser();
+
+    const [toastVisible, setToastVisible] = useState(false);
+  const [loading, setLoading] = useState(false)
   const [value, setValue] = React.useState("");
-  const [textAreaValue, setTextAreaValue] = React.useState("");
+    const [title, setTitle] = useState('')
+  const [priority, setPriority] = useState('medium')
+  const [status, setStatus] = useState('Pending')
+  const [desc, setDesc] = useState('')
+  const [dueDate, setDueDate] = useState(null)
+  const [Date, setDate] = useState(parseDate("2024-04-04"));
+  const formattedDate = Date.toDate ? Date.toDate(getLocalTimeZone()) : null;
+  // let formatter = useDateFormatter({ dateStyle: "full" });
+  console.log(formattedDate)
 
+    const createATask = async() => {
+    const data = {
+      userId: user?.id,
+      title: title,
+      description:desc,
+      status: status,
+      dueDate:formattedDate,
+      priority:priority,
+      createdAt: user?.createdAt
+    }
+
+    try {
+      GlobalApi.createTask(data).then(resp => {
+        console.log(resp)
+        console.log(resp.data)
+        console.log("task added")
+        // Show toast message
+        setLoading(true)
+        setToastVisible(true);
+        getTaskById()
+
+        // Clear input fields
+        setTitle("");
+        setDesc("");
+        setStatus("");
+        setPriority("");
+
+        // Hide toast after 3 seconds
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
+        // // Hide toast after 3 seconds
+        setTimeout(() => {
+          setToastVisible(false);
+        }, 5000);
+      
+      })
+
+    } catch (error) {
+console.log(error)
+    }
+
+  }
 
   const handleSelectionChange = (e) => {
-    setValue(e.target.value);
+    setStatus(e.target.value);
+  };
+  
+  const handleSelectionChangePriority = (e) => {
+    setPriority(e.target.value);
   };
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+
+  function handleTitle(e) {
+    setTitle(e.target.value)
+    console.log(title)
+  }
   
-  const animals = [
-    {key: "cat", label: "Cat"},
-    {key: "dog", label: "Dog"},
-    {key: "elephant", label: "Elephant"},
-    {key: "lion", label: "Lion"},
-    {key: "tiger", label: "Tiger"},
-    {key: "giraffe", label: "Giraffe"},
-    {key: "dolphin", label: "Dolphin"},
-    {key: "penguin", label: "Penguin"},
-    {key: "zebra", label: "Zebra"},
-    {key: "shark", label: "Shark"},
-    {key: "whale", label: "Whale"},
-    {key: "otter", label: "Otter"},
-    {key: "crocodile", label: "Crocodile"}
+
+  const options = [
+    { id: 1, name: "Option 1" },
+    { id: 2, name: "Option 2" },
+    { id: 3, name: "Option 3" },
+    { id: 4, name: "Option 4" },
+    { id: 5, name: "Option 5" },
+    { id: 6, name: "Option 6" },
+    { id: 7, name: "Option 7" },
+    { id: 8, name: "Option 8" },
+    { id: 9, name: "Option 9" },
+    { id: 10, name: "Option 10" },
+    { id: 11, name: "Option 11" },
+    { id: 12, name: "Option 12" },
   ];
+
+  const [selected, setSelected] = useState([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const handleSelect = (id) => {
+    setSelected((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
+  };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
+
 
   return (
     <>
-      <Button onPress={onOpen} color="primary">Open Modal</Button>
+      <Button onPress={onOpen} color="primary">Create New Task</Button>
       <Modal 
         isOpen={isOpen} 
         onOpenChange={onOpenChange}
         placement="top-center"
+        scrollBehavior="inside"
+        backdrop='blur'
+        size='2xl'
       >
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">Log in</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">Create Task</ModalHeader>
               <ModalBody>
                 <Input
                   autoFocus
-                  label="Email"
-                  placeholder="Enter your email"
+                  label="Title"
+                  placeholder="Enter your Title"
                   variant="bordered"
                   labelPlacement="outside"
+                  onChange={handleTitle}
                 />
-                <Input
-                  
-                  label="Password"
-                  placeholder="Enter your password"
-                  type="password"
-                  variant="bordered"
-                />
-                <div className="flex py-2 px-1 justify-between">
-                  <Checkbox
-                    classNames={{
-                      label: "text-small",
-                    }}
-                  >
-                    Remember me
-                  </Checkbox>
-                  <Link color="primary" href="#" size="sm">
-                    Forgot password?
-                  </Link>
-                </div>
-
-                <div className="flex w-full max-w-xs flex-col gap-2">
+                title:{title}
+  
+                
+                <div className='flex gap-2'>
+                  <div className="flex w-full max-w-xs flex-col gap-2">
+                  {/* ['pending', 'ongoing', 'completed', 'failed'] */}
       <Select
         label="Favorite Animal"
         variant="bordered"
         placeholder="Select an animal"
-        selectedKeys={[value]}
+        selectedKeys={[status]}
         className="max-w-xs"
         onChange={handleSelectionChange}
       >
-        {animals.map((animal) => (
-          <SelectItem key={animal.key}>
-            {animal.label}
+         <SelectItem key="pending">
+           Pending
+                      </SelectItem>
+                      
+                      <SelectItem key="ongoing">
+           Ongoing
+                      </SelectItem>
+                      
+                      <SelectItem key="completed">
+           Completed
+                      </SelectItem>
+                      
+                      <SelectItem key="failed">
+           Failed
           </SelectItem>
-        ))}
       </Select>
-      <p className="text-small text-default-500">Selected: {value}</p>
+      <p className="text-small text-default-500">Selected: {status}</p>
     </div>
 
-    <Select
-      items={users}
-      label="Assigned to"
-      variant="bordered"
-      isMultiline={true}
-      selectionMode="multiple"
-      placeholder="Select a user"
-      labelPlacement="outside"
-      classNames={{
-        base: "max-w-xs",
-        trigger: "min-h-12 py-2",
-      }}
-      renderValue={(items) => {
-        return (
-          <div className="flex flex-wrap gap-2">
-            {items.map((item) => (
-              <Chip key={item.key}>{item.data.name}</Chip>
-            ))}
-          </div>
-        );
-      }}
-    >
-      {(user) => (
-        <SelectItem key={user.id} textValue={user.name}>
-          <div className="flex gap-2 items-center">
-            <Avatar alt={user.name} className="flex-shrink-0" size="sm" src={user.avatar} />
-            <div className="flex flex-col">
-              <span className="text-small">{user.name}</span>
-              <span className="text-tiny text-default-400">{user.email}</span>
+                
+                <div className="flex w-full max-w-xs flex-col gap-2">
+      <Select
+        label="Priorty"
+        variant="bordered"
+        placeholder="Select Priority"
+        selectedKeys={[priority]}
+        className="max-w-xs"
+        onChange={handleSelectionChangePriority}
+      >
+        <SelectItem key="low">
+            Low
+                      </SelectItem>
+                      
+                      <SelectItem key="medium">
+            Medium
+                      </SelectItem>
+
+                      <SelectItem key="high">
+            High
+            
+          </SelectItem>
+      </Select>
+      <p className="text-small text-default-500">Selected: {priority}</p>
+                  </div>
+                  
+                  </div>
+
+                
+                
+                
+                
+                 <div className="w-64">
+      {/* Trigger Button */}
+      <button
+        onClick={toggleDropdown}
+        className="w-full border rounded-md px-4 py-2 bg-white text-left cursor-pointer"
+      >
+        <div
+          className="flex flex-wrap gap-1 max-h-20 overflow-y-auto"
+          style={{ maxHeight: "80px" }}
+        >
+          {selected.length > 0 ? (
+            selected.map((id) => (
+              <span
+                key={id}
+                className="bg-blue-500 text-white px-2 py-1 rounded-md text-sm"
+              >
+                {userList.find((opt) => opt.clerkId === id)?.name}
+              </span>
+            ))
+          ) : (
+            <span className="text-gray-500">Select options...</span>
+          )}
+        </div>
+      </button>
+
+      {/* Dropdown */}
+      {isDropdownOpen && (
+        <div
+          className="mt-2 w-full bg-white border rounded-md shadow-md z-10 overflow-y-auto"
+          style={{ maxHeight: "150px" }}
+        >
+          {userList.map((option) => (
+            <div
+              key={option.clerkId}
+              onClick={() => handleSelect(option.clerkId)}
+              className={`px-4 py-2 cursor-pointer ${
+                selected.includes(option.clerkId) ? "bg-blue-100" : "hover:bg-gray-100"
+              }`}
+            >
+              {option.email}
             </div>
-          </div>
-        </SelectItem>
-      )}
-    </Select>
+          ))}
+        </div>
+                  )}
+                  
+{/*                   
+clerkId
+: 
+"user_2oILSplNzfkHSF26Pq57kzaiTHJ"
+createdAt
+: 
+"2024-11-13T13:26:39.792Z"
+email
+: 
+"arokoyujr10@gmail.com"
+name
+: 
+"arokoyu olaniyi"
+role
+: 
+"user"
+__v
+: 
+0
+_id
+:  */}
+{/* "6734a91114265ea1a5cd80f2" */}
+
+      {/* Display selected items */}
+      <div className="mt-4">
+        <strong>Selected:</strong>{" "}
+        {selected.length > 0
+          ? selected
+              .map((clerkId) => userList.find((opt) => opt.clerkId === clerkId)?.email)
+              .join(", ")
+          : "None"}
+      </div>
+    </div>
+
+                
+                <div className="flex flex-row gap-2">
+      <div className="w-full flex flex-col gap-y-2">
+        <DatePicker className="max-w-[284px]" label="Add deadline" value={Date} onChange={setDate} />
+        <p className="text-default-500 text-sm">
+          {/* Selected date: {Date ? formatter.format(Date.toDate(getLocalTimeZone())) : "--"} */}
+        </p>
+      </div>
+      {/* <DatePicker className="max-w-[284px]" defaultValue={parseDate("2024-04-04")} label="Date (uncontrolled)" /> */}
+    </div>
 
 
-    <div className="w-full flex flex-col gap-2 max-w-[240px]">
+    <div className="w-full flex flex-col gap-2 ">
       <Textarea
-        variant="underlined"
+        variant="bordered"
         label="Description"
         labelPlacement="outside"
-        placeholder="Enter your description"
-        value={textAreaValue}
-        onValueChange={setTextAreaValue}
+        placeholder="Enter your Task description"
+        value={desc}
+        onValueChange={setDesc}
       />
-      <p className="text-default-500 text-small">Textarea value: {textAreaValue}</p>
+      <p className="text-default-500 text-small">Textarea value: {desc}</p>
     </div>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="flat" onPress={onClose}>
-                  Close
+                  Cancel
                 </Button>
-                <Button color="primary" onPress={onClose}>
-                  Sign in
+                {loading ? ( <Button isLoading isDisabled onClick={createATask} color="primary">
+                  Create
+                </Button>) :
+                    <Button onClick={createATask} color="primary">
+                  Create
                 </Button>
+                }
+              
               </ModalFooter>
             </>
           )}

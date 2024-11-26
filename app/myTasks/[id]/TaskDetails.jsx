@@ -74,8 +74,8 @@ export default function TaskDetails({taskDetails}) {
 
     return (
       
-    <div className="container mx-auto py-10">
-      <Card className="max-w-3xl mx-auto">
+    <div className="container w-full mx-auto py-10">
+      <Card className="w-full mx-auto">
         <CardHeader>
           <div className="flex justify-between items-start">
             <div>

@@ -155,7 +155,7 @@ const page = ({params}) => {
   }
 
   return (
-    <div className='bg-white p-8 rounded-lg m-auto w-2/3'>
+    <div className='bg-white p-8 rounded-lg m-auto w-[90%] '>
       {/* ///////////////////////////////////////////////////////////////// */}
       <TaskDetails taskDetails={taskDetails} />
       {/* ///////////////////////////////////////////////////////////////// */}
