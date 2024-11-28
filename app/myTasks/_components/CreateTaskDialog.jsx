@@ -28,8 +28,11 @@ const CreateTaskDialog = ({getTaskById, userList}) => {
   const [dueDate, setDueDate] = useState(null)
   const [Date, setDate] = useState(parseDate("2024-04-04"));
   const formattedDate = Date.toDate ? Date.toDate(getLocalTimeZone()) : null;
+  const [collaborators, setCollaborators] = useState([]);
+
+
   // let formatter = useDateFormatter({ dateStyle: "full" });
-  console.log(formattedDate)
+  // console.log(formattedDate)
 
     const createATask = async() => {
     const data = {
@@ -39,7 +42,8 @@ const CreateTaskDialog = ({getTaskById, userList}) => {
       status: status,
       dueDate:formattedDate,
       priority:priority,
-      createdAt: user?.createdAt
+      createdAt: user?.createdAt,
+      collaborators: collaborators
     }
 
     try {
@@ -91,33 +95,20 @@ console.log(error)
   }
   
 
-  const options = [
-    { id: 1, name: "Option 1" },
-    { id: 2, name: "Option 2" },
-    { id: 3, name: "Option 3" },
-    { id: 4, name: "Option 4" },
-    { id: 5, name: "Option 5" },
-    { id: 6, name: "Option 6" },
-    { id: 7, name: "Option 7" },
-    { id: 8, name: "Option 8" },
-    { id: 9, name: "Option 9" },
-    { id: 10, name: "Option 10" },
-    { id: 11, name: "Option 11" },
-    { id: 12, name: "Option 12" },
-  ];
-
   const [selected, setSelected] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleSelect = (id) => {
-    setSelected((prev) =>
+    setCollaborators((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
   };
 
+
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
+  console.log(collaborators)
 
 
   return (
@@ -219,13 +210,13 @@ console.log(error)
           className="flex flex-wrap gap-1 max-h-20 overflow-y-auto"
           style={{ maxHeight: "80px" }}
         >
-          {selected.length > 0 ? (
-            selected.map((id) => (
+          {collaborators.length > 0 ? (
+            collaborators.map((id) => (
               <span
                 key={id}
                 className="bg-blue-500 text-white px-2 py-1 rounded-md text-sm"
               >
-                {userList.find((opt) => opt.clerkId === id)?.name}
+                {userList.find((opt) => opt._id === id)?.name}
               </span>
             ))
           ) : (
@@ -243,9 +234,9 @@ console.log(error)
           {userList.map((option) => (
             <div
               key={option.clerkId}
-              onClick={() => handleSelect(option.clerkId)}
+              onClick={() => handleSelect(option._id)}
               className={`px-4 py-2 cursor-pointer ${
-                selected.includes(option.clerkId) ? "bg-blue-100" : "hover:bg-gray-100"
+                collaborators.includes(option._id) ? "bg-blue-100" : "hover:bg-gray-100"
               }`}
             >
               {option.email}
@@ -280,7 +271,7 @@ _id
       {/* Display selected items */}
       <div className="mt-4">
         <strong>Selected:</strong>{" "}
-        {selected.length > 0
+        {collaborators.length > 0
           ? selected
               .map((clerkId) => userList.find((opt) => opt.clerkId === clerkId)?.email)
               .join(", ")

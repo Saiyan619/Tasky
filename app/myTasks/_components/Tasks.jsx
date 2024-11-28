@@ -43,11 +43,11 @@ const Tasks = () => {
         console.log(resp)
         console.log(resp.data)
          setAllTasks(resp.data)
-         console.log(allTasks)
+        //  console.log(allTasks)
         console.log("these are all my tasks")
       })
     } catch (error) {
-      console.log(evrror)
+      console.log(error)
     }
   }
   return (
@@ -70,6 +70,7 @@ const Tasks = () => {
             status={item.status}
             dueDate={item.dueDate}
             priority={item.priority}
+            collaborators={item.collaborators}
             
           />
 
