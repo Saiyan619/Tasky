@@ -1,8 +1,8 @@
 const { default: axios } = require("axios");
 
 const axiosClient = axios.create({
-    // baseURL: 'http://localhost:8000'
-    baseURL: 'http://192.168.151.15:8000'
+    baseURL: 'http://localhost:8000'
+    // baseURL: 'http://192.168.151.15:8000'
 });
 
 const createUser = (data) => axiosClient.post('/user', data);

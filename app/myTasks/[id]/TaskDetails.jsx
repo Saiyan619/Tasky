@@ -2,61 +2,22 @@
 import React from "react";
 import { useState } from "react"
 import moment from 'moment/moment';
-import { Card, CardHeader, CardBody, CardFooter, Avatar, Button } from "@nextui-org/react";
-import {Chip} from "@nextui-org/chip";
+import { Card, CardHeader, CardBody, CardFooter,Chip, Button } from "@nextui-org/react";
+import {Avatar, AvatarGroup} from "@nextui-org/react";
+
 
 
 import { CalendarIcon, FlagIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
-// import { Badge } from "@/components/ui/badge"
-// import { Button } from "@/components/ui/button"
-// import {
-//   Card,
-//   CardContent,
-//   CardDescription,
-//   CardFooter,
-//   CardHeader,
-//   CardTitle,
-// } from "@/components/ui/card"
-// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 // import { EditTaskDialog } from "./edit-task-dialog"
 // import { CompleteTaskDialog } from "./complete-task-dialog"
 
 // Mock data for demonstration with a longer description
-const initialTask = {
-  id: "1",
-  title: "Implement user authentication",
-  description: `Set up a comprehensive user authentication system using JSON Web Tokens (JWT) and integrate it seamlessly with our backend API. This task involves several key steps:
 
-1. Research and select the most appropriate JWT library for our tech stack.
-2. Implement token generation on successful login, ensuring proper payload structure and encryption.
-3. Set up token verification middleware for protected routes.
-4. Implement token refresh mechanism to maintain user sessions securely.
-5. Create login, logout, and password reset functionalities.
-6. Integrate the authentication system with our existing user database.
-7. Implement proper error handling and user feedback for authentication failures.
-8. Set up secure storage of tokens on the client-side (e.g., HTTP-only cookies).
-9. Conduct thorough testing, including unit tests and integration tests.
-10. Document the authentication flow and API endpoints for the development team.
-
-Consider security best practices throughout the implementation, such as protecting against common vulnerabilities like XSS and CSRF attacks. Also, ensure the system is scalable and can handle a high volume of authentication requests.`,
-  status: "In Progress",
-  priority: "High",
-  dueDate: "2023-12-31",
-  assignee: {
-    name: "John Doe",
-    avatar: "/placeholder-avatar.jpg",
-    initials: "JD"
-  },
-  comments: [
-    { id: "1", author: "Jane Smith", content: "How's the progress on this? Any blockers we should be aware of?", timestamp: "2023-12-15T10:30:00Z" },
-    { id: "2", author: "John Doe", content: "I've completed the basic setup and token generation. Currently working on the token refresh mechanism and integration with our API. No major blockers at the moment, but I'd appreciate a review of the current implementation.", timestamp: "2023-12-15T11:45:00Z" },
-  ]
-}
 
 export default function TaskDetails({taskDetails}) {
   const [isFollowed, setIsFollowed] = React.useState(false);
-  const [task, setTask] = useState(initialTask)
+  // const [task, setTask] = useState(initialTask)
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false)
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
     const [isCompleteDialogOpen, setIsCompleteDialogOpen] = useState(false)
@@ -127,14 +88,22 @@ console.log(taskDetails?.collaborators.name)
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab alias eius dolorum cum! Enim ducimus animi iusto blanditiis, cupiditate mollitia, at voluptate maxime architecto iure illum maiores modi alias numquam!
             </p>
         <span className="pt-2">
-        Due: {taskDetails?.createdAt ? formatDate(taskDetails.createdAt) : 'No date available'}
+        Due: {taskDetails?.dueDate ? formatDate(taskDetails.dueDate) : 'No date available'}
         </span>
       </CardBody>
       <CardFooter className="flex items-center justify-between">
         
         <div className="flex flex-col">
           <p className="font-semibold text-default-400 text-small">Assigned to:</p>
-          <p className="text-default-400 text-small">Followers</p>
+              <div>
+                <AvatarGroup isBordered max={3}>
+                  {taskDetails?.collaborators.map((item) => {
+                    return (
+                      <Avatar size="sm" name={item.email.slice(0, 2)} />
+                    )
+                  })}
+    </AvatarGroup>
+         </div>
             </div>
             
             <div className="">
