@@ -121,12 +121,14 @@ const page = ({params}) => {
   }
 
   return (
-    <div className='bg-white m-auto'>
+    <div className='bg-white m-auto flex  justify-center flex-col p-2'>
      
       {/* ///////////////////////////////////////////////////////////////// */}
+      <div className='p-4'>
       <TaskDetails taskDetails={taskDetails} />
+      </div>
 
-      <div className='flex items-center justify-between'>
+      <div className='flex items-center justify-between pl-6 pr-6 pt-2'>
 
       <UpdateTask
         updateATask={updateATask}
