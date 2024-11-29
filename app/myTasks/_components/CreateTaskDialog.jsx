@@ -142,9 +142,9 @@ console.log(error)
                   <div className="flex w-full max-w-xs flex-col gap-2">
                   {/* ['pending', 'ongoing', 'completed', 'failed'] */}
       <Select
-        label="Favorite Animal"
+        label="Status"
         variant="bordered"
-        placeholder="Select an animal"
+        placeholder="Select Status"
         selectedKeys={[status]}
         className="max-w-xs"
         onChange={handleSelectionChange}

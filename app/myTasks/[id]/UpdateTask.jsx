@@ -76,7 +76,7 @@ export default function UpdateTask({
 
 
   return (
-    <>
+    <div>
       {/* <Button  onPress={onOpen}>Open Modal</Button> */}
       <Button onClick={getAllUsers} onPress={onOpen}>Update Task</Button>
           <Modal
@@ -279,6 +279,6 @@ _id
           )}
         </ModalContent>
       </Modal>
-    </>
+    </div>
   );
 }

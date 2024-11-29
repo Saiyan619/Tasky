@@ -6,10 +6,10 @@ export default function DeleteTask({deleteATask}) {
 
 
   return (
-    <>
+    <div>
       <div className="flex flex-wrap gap-3">
        
-          <Button size="3xl" onPress={onOpen}>Delete Task</Button>
+          <Button color="danger" onPress={onOpen}>Delete Task</Button>
       </div>
       <Modal 
         size='3xl'
@@ -39,6 +39,6 @@ export default function DeleteTask({deleteATask}) {
           )}
         </ModalContent>
       </Modal>
-    </>
+    </div>
   );
 }

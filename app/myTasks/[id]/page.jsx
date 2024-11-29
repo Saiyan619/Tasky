@@ -126,6 +126,8 @@ const page = ({params}) => {
       {/* ///////////////////////////////////////////////////////////////// */}
       <TaskDetails taskDetails={taskDetails} />
 
+      <div className='flex items-center justify-between'>
+
       <UpdateTask
         updateATask={updateATask}
         handleTitleInput={handleTitleInput}
@@ -143,9 +145,14 @@ setUpdatedDesc={setUpdatedDesc}
         formattedDate={formattedDate}
         collaborators={collaborators}
 setCollaborators={setCollaborators}
-      />
+        />
+        
+        <DeleteTask deleteATask={deleteATask} />
 
-      <DeleteTask deleteATask={deleteATask} />
+      </div>
+
+     
+
       {/* ///////////////////////////////////////////////////////////////// */}
      
       {/* userId, title, description, status, dueDate, priority, createdAt, updatedAt */}

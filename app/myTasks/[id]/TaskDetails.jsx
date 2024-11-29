@@ -42,7 +42,7 @@ console.log(taskDetails?.collaborators.name)
     return (
       
       // <div className="container w-full mx-auto py-10">
-      <div className="w-[90%]">
+      <div className="w-[90%] m-auto">
           
           <Card className="">
       <CardHeader className="flex justify-between">
@@ -108,14 +108,10 @@ console.log(taskDetails?.collaborators.name)
             
             <div className="">
         <Button
-          // className={isFollowed ? "bg-transparent text-foreground border-default-200" : ""}
           color="danger"
           radius="full"
           size="sm"
-          // variant={isFollowed ? "bordered" : "solid"}
-          // onPress={() => setIsFollowed(!isFollowed)}
         >
-              {/* {isFollowed ? "Unfollow" : "Follow"} */}
               Delete Task
               </Button>
               
