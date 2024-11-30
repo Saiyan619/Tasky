@@ -25,6 +25,7 @@ const Tasks = () => {
      }
   }, [user])
 
+
   const getAllUsers = async () => {
     try {
       GlobalApi.getUsers().then(resp => {

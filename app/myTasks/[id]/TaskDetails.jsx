@@ -18,7 +18,10 @@ export default function TaskDetails({taskDetails}) {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
     const [isCompleteDialogOpen, setIsCompleteDialogOpen] = useState(false)
     // const formatDate = (isoString) => moment(isoString).format('MMMM Do YYYY, h:mm:ss a');
-    const formatDate = (isoString) => moment(isoString).format('MMMM Do YYYY');
+  const formatDate = (isoString) => moment(isoString).format('MMMM Do YYYY');
+  
+  console.log(taskDetails)
+  console.log(taskDetails?.collaborators)
 
 
   const handleSaveTask = (updatedTask) => {
@@ -34,7 +37,6 @@ export default function TaskDetails({taskDetails}) {
     setIsCompleteDialogOpen(false)
   }
 
-console.log(taskDetails?.collaborators.name)
     return (
       
       // <div className="container w-full mx-auto py-10">

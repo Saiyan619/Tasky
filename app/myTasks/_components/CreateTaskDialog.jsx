@@ -109,6 +109,7 @@ console.log(error)
     setIsDropdownOpen((prev) => !prev);
   };
   console.log(collaborators)
+  // console.log(userList)
 
 
   return (
@@ -233,7 +234,7 @@ console.log(error)
         >
           {userList.map((option) => (
             <div
-              key={option.clerkId}
+              key={option._id}
               onClick={() => handleSelect(option._id)}
               className={`px-4 py-2 cursor-pointer ${
                 collaborators.includes(option._id) ? "bg-blue-100" : "hover:bg-gray-100"
@@ -273,7 +274,7 @@ _id
         <strong>Selected:</strong>{" "}
         {collaborators.length > 0
           ? selected
-              .map((clerkId) => userList.find((opt) => opt.clerkId === clerkId)?.email)
+              .map((id) => userList.find((opt) => opt._id === id)?.email)
               .join(", ")
           : "None"}
       </div>
