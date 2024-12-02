@@ -51,6 +51,21 @@ const Tasks = () => {
       console.log(error)
     }
   }
+
+  const getSharedTask = async () => {
+    try {
+      await GlobalApi.getSharedTask(user?.id).then(resp => {
+        if (resp.data != []) {
+          console.log(resp.data)
+        } else {
+          console.log("task not found!!!")
+        }
+        
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <div className='flex items-center justify-center flex-col'>
       <p>My Tasks</p>

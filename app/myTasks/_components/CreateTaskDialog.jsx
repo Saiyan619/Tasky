@@ -217,7 +217,7 @@ console.log(error)
                 key={id}
                 className="bg-blue-500 text-white px-2 py-1 rounded-md text-sm"
               >
-                {userList.find((opt) => opt._id === id)?.name}
+                {userList.find((opt) => opt.clerkId === id)?.name}
               </span>
             ))
           ) : (
@@ -234,47 +234,25 @@ console.log(error)
         >
           {userList.map((option) => (
             <div
-              key={option._id}
-              onClick={() => handleSelect(option._id)}
+              key={option.clerkId}
+              onClick={() => handleSelect(option.clerkId)}
               className={`px-4 py-2 cursor-pointer ${
-                collaborators.includes(option._id) ? "bg-blue-100" : "hover:bg-gray-100"
+                collaborators.includes(option.clerkId) ? "bg-blue-100" : "hover:bg-gray-100"
               }`}
             >
               {option.email}
             </div>
           ))}
         </div>
-                  )}
-                  
-{/*                   
-clerkId
-: 
-"user_2oILSplNzfkHSF26Pq57kzaiTHJ"
-createdAt
-: 
-"2024-11-13T13:26:39.792Z"
-email
-: 
-"arokoyujr10@gmail.com"
-name
-: 
-"arokoyu olaniyi"
-role
-: 
-"user"
-__v
-: 
-0
-_id
-:  */}
-{/* "6734a91114265ea1a5cd80f2" */}
+                  )}       
+
 
       {/* Display selected items */}
-      <div className="mt-4">
+            <div className="mt-4">
         <strong>Selected:</strong>{" "}
         {collaborators.length > 0
           ? selected
-              .map((id) => userList.find((opt) => opt._id === id)?.email)
+              .map((id) => userList.find((opt) => opt.clerkId === id)?.email)
               .join(", ")
           : "None"}
       </div>

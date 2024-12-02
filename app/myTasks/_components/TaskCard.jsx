@@ -34,7 +34,7 @@ function TaskCard({ title, description, status, dueDate, priority, TaskDbId }) {
       </CardHeader>
       <CardContent>
         <div className="text-sm">{description?.slice(0, 100)}...</div>
-        <Link href={`/myTasks/${TaskDbId}`}> <Button onClick={handleSeeDetails} className='text-xs mt-5'>See More</Button></Link>
+        <Link href={`/myTasks/${TaskDbId}`}> <Button onC3lick={handleSeeDetails} className='text-xs mt-5'>See More</Button></Link>
       </CardContent>
       <CardFooter className="flex justify-between text-xs">
         <div className="flex flex-col">

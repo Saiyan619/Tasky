@@ -22,8 +22,8 @@ const items = [
     icon: Home,
   },
   {
-    title: "Inbox",
-    url: "#",
+    title: "Shared-Tasks",
+    url: "/sharedTasks",
     icon: Inbox,
   },
   {

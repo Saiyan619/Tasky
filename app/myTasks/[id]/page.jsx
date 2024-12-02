@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react';
 import GlobalApi from '@/app/_utils/GlobalApi';
 import moment from 'moment/moment';
 import { useUser } from '@clerk/nextjs';
+import {Button} from "@nextui-org/react";
+
 
 
 import {parseDate, getLocalTimeZone} from "@internationalized/date";
@@ -115,13 +117,13 @@ const page = ({params}) => {
     }
   }
 
-  
-  function checkData() {
-    console.log(priority)
-  }
+
+
+
 
   return (
     <div className='bg-white m-auto flex  justify-center flex-col p-2'>
+
      
       {/* ///////////////////////////////////////////////////////////////// */}
       <div className='p-4'>

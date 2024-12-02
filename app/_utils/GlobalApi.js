@@ -13,7 +13,8 @@ const getTaskByClerkId = (clerkId) => axiosClient.get('/task/user/' + clerkId);
 const getTaskDetails = (id) => axiosClient.get('/task/taskInfo/' + id)
 const updateTask = (id, data) => axiosClient.put(`/task/editTask/${id}`, data);
 const deleteTask = (id) => axiosClient.delete('/task/deleteTask/' + id);
-
+const getSharedTask = (id) => axiosClient.get('/task/collaborate/shared-tasks/' + id)
+// /collaborate/shared-tasks/:userId'
 
 export default {
     createUser,
@@ -23,6 +24,7 @@ export default {
     getTaskByClerkId,
     getTaskDetails,
     updateTask,
-    deleteTask
+    deleteTask,
+    getSharedTask
 }
 
