@@ -14,9 +14,6 @@ import { Separator } from "@/components/ui/separator"
 
 export default function TaskDetails({taskDetails}) {
   const [isFollowed, setIsFollowed] = React.useState(false);
-  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false)
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
-    const [isCompleteDialogOpen, setIsCompleteDialogOpen] = useState(false)
     // const formatDate = (isoString) => moment(isoString).format('MMMM Do YYYY, h:mm:ss a');
   const formatDate = (isoString) => moment(isoString).format('MMMM Do YYYY');
   

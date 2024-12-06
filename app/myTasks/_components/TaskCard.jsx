@@ -24,7 +24,7 @@ function TaskCard({ title, description, status, dueDate, priority, TaskDbId }) {
   }
 
   return (
-    <Card className="w-[300px]">
+    <Card className="w-[300px] m-auto">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription className='flex gap-4'>
