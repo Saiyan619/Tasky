@@ -7,8 +7,6 @@ import {Avatar, AvatarGroup} from "@nextui-org/react";
 
 
 
-import { CalendarIcon, FlagIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
-import { Separator } from "@/components/ui/separator"
 
 
 
