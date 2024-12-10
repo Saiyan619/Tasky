@@ -88,23 +88,44 @@ const page = ({params}) => {
 
   const updateATask = async () => {
     try {
-      const updatedTask = {
-        title: updatedTitle,
-        description:updateddesc,
-        status: updatedstatus,
-        priority: updatedpriority,
-        dueDate:formattedDate,
-        collaborators:collaborators
-      };
-      GlobalApi.updateTask(id, updatedTask).then(resp => {
-        console.log("Updated task data from backend:", resp.data);
+        const updatedTask = {
+            title: updatedTitle,
+            description: updateddesc,
+            status: updatedstatus,
+            priority: updatedpriority,
+            dueDate: formattedDate,
+            collaborators: collaborators,
+            userId: user?.id, // Ensure this is passed from Clerk
+        };
+
+        console.log("Sending task update request:", updatedTask);
+
+        const response = await GlobalApi.updateTask(id, updatedTask);
+        console.log("Updated task data from backend:", response.data);
+
         // Optionally refetch the updated task details
-       getTaskDetailsById();
-      })
+        getTaskDetailsById();
     } catch (error) {
-      console.log(error)
+        // Log and inspect the error structure
+        console.error("Error during task update:", error);
+
+        // Handle Axios-specific error structure
+      if (error.response) {
+        const status = error.response.status;
+        const message = error.response.data.message || "An unknown error occurred";
+
+        console.error("Error Response Status:", status);
+        console.error("Error Response Message:", message);
+      }
+
+         else {
+            // General error
+            console.error("Error message:", error.message);
+            alert("You cannot update tasks as a viewer");
+        }
     }
-  }
+};
+
 
   const deleteATask = async () => {
     try {
@@ -113,7 +134,34 @@ const page = ({params}) => {
         console.log("deleted");
       })
     } catch (error) {
-      console.log(error)
+      console.error("Error in updateATask:", error);
+
+    // Debugging the error object
+    console.log("Full error object:", error);
+
+    if (error.response) {
+      const status = error.response.status;
+      const message = error.response.data?.message || "An error occurred";
+
+      console.log("Error Response Status:", status);
+
+      switch (status) {
+        case 403:
+          alert("You do not have permission to update this task.");
+          break;
+        case 404:
+          alert("Task not found.");
+          break;
+        case 500:
+          alert("A server error occurred. Please try again later.");
+          break;
+        default:
+          alert(`Error: ${message}`);
+      }
+    } else {
+      // Unexpected error (network issues, etc.)
+      alert("An unexpected error occurred. Please check your network connection.");
+    }
     }
   }
 

@@ -42,7 +42,7 @@ export default function UpdateTask({
      }, [user])
     
 
-  console.log(formattedDate)
+  // console.log(formattedDate)
 
   const getAllUsers = async () => {
         try {
@@ -53,7 +53,37 @@ export default function UpdateTask({
         } catch (error) {
           console.log(error)
         }
-    }
+  }
+  
+
+     // Handle adding/removing collaborators
+     const toggleCollaborator = (user) => {
+      setCollaborators((prev) => {
+          const isSelected = prev.find((c) => c.clerkId === user.clerkId);
+          console.log('Before update:', prev); // Check current state
+          
+          if (isSelected) {
+              console.log('Removing:', user);
+              return prev.filter((c) => c.clerkId !== user.clerkId);
+          } else {
+              console.log('Adding:', user);
+              const updated = [...prev, { clerkId: user.clerkId, name: user.name, role: 'viewer' }];
+              console.log('After update:', updated); // Check updated state
+              return updated;
+          }
+      });
+  };
+  
+  // Handle role change
+  const updateRole = (clerkId, role) => {
+      setCollaborators((prev) =>
+          prev.map((c) => (c.clerkId === clerkId ? { ...c, role } : c))
+      );
+  };
+
+
+  console.log(collaborators)
+
     console.log(userList)
     console.log(user)
 
@@ -161,6 +191,62 @@ export default function UpdateTask({
                   
                               </div>
                               
+                
+
+                
+                {/* ///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////// */}
+    
+
+   
+        <div>
+            {/* List of available users */}
+            <h3>Available Users</h3>
+            {userList.length > 0 ? (
+                userList.map((user) => (
+                    <div key={user.clerkId} style={{ display: 'flex', alignItems: 'center' }}>
+                        <input
+                            type="checkbox"
+                            onChange={() => toggleCollaborator(user)}
+                            checked={collaborators.some((c) => c.clerkId === user.clerkId)}
+                        />
+                        <span style={{ marginLeft: '10px' }}>{user.email}</span>
+                    </div>
+                ))
+            ) : (
+                <p>Loading users...</p>
+            )}
+
+            {/* List of selected collaborators */}
+            <h3>Selected Collaborators</h3>
+            {collaborators.map((collab) => (
+                <div key={collab.clerkId} style={{ display: 'flex', alignItems: 'center' }}>
+                    <span>{collab.name}</span>
+                    <select
+                        style={{ marginLeft: '10px' }}
+                        value={collab.role}
+                        onChange={(e) => updateRole(collab.clerkId, e.target.value)}
+                    >
+                        <option value="owner">Owner</option>
+                        <option value="collaborator">Collaborator</option>
+                        <option value="viewer">Viewer</option>
+                    </select>
+                </div>
+            ))}
+
+                  
+                  {/* <button onClick={handleSubmit} style={{ marginTop: '20px' }}> */}
+                Submit
+            {/* </button> */}
+        </div>
+  
+
+export default Collaborators;
+
+{/* ///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////// */}
+                
+
                                   
                  <div className="w-64">
       {/* Trigger Button */}
@@ -207,28 +293,7 @@ export default function UpdateTask({
         </div>
                   )}
                   
-{/*                   
-clerkId
-: 
-"user_2oILSplNzfkHSF26Pq57kzaiTHJ"
-createdAt
-: 
-"2024-11-13T13:26:39.792Z"
-email
-: 
-"arokoyujr10@gmail.com"
-name
-: 
-"arokoyu olaniyi"
-role
-: 
-"user"
-__v
-: 
-0
-_id
-:  */}
-{/* "6734a91114265ea1a5cd80f2" */}
+
 
       {/* Display selected items */}
       <div className="mt-4">

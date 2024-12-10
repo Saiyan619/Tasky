@@ -16,7 +16,7 @@ import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge";
 
 
-function TaskCard({ title, description, status, dueDate, priority, TaskDbId }) {
+function TaskCard({key, title, description, status, dueDate, priority, TaskDbId }) {
   const formatDate = (isoString) => moment(isoString).format('MMMM Do YYYY')
   const router = useRouter();
   const handleSeeDetails = () => {
@@ -24,7 +24,7 @@ function TaskCard({ title, description, status, dueDate, priority, TaskDbId }) {
   }
 
   return (
-    <Card className="w-[300px] m-auto">
+    <Card key={key} className="w-[300px] m-auto">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription className='flex gap-4'>
@@ -34,7 +34,8 @@ function TaskCard({ title, description, status, dueDate, priority, TaskDbId }) {
       </CardHeader>
       <CardContent>
         <div className="text-sm">{description?.slice(0, 100)}...</div>
-        <Link href={`/myTasks/${TaskDbId}`}> <Button onC3lick={handleSeeDetails} className='text-xs mt-5'>See More</Button></Link>
+        <Link href={`/myTasks/${TaskDbId}`}> <Button onClick={handleSeeDetails} className='text-xs mt-5'>See More</Button></Link>
+        <Link onClick={handleSeeDetails}  href={`/myTasks/${TaskDbId}`}>See More about details</Link>
       </CardContent>
       <CardFooter className="flex justify-between text-xs">
         <div className="flex flex-col">

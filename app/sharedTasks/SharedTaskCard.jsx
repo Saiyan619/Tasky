@@ -1,10 +1,17 @@
 import React from "react";
+import Link from "next/link"
+import { useRouter } from "next/navigation"
 import {Card, CardHeader, CardBody, CardFooter, Avatar, Button, AvatarGroup, Chip} from "@nextui-org/react";
 import moment from 'moment/moment';
 
 export default function SharedTaskCard({title, description, status, dueDate, priority, TaskDbId, collaborators}) {
     const [isFollowed, setIsFollowed] = React.useState(false);
-    const formatDate = (isoString) => moment(isoString).format('MMMM Do YYYY')
+  const formatDate = (isoString) => moment(isoString).format('MMMM Do YYYY')
+  
+  const router = useRouter();
+  const handleSeeDetails = () => {
+    router.push(`/task/${TaskDbId}`)
+  }
 
 
   return (
@@ -28,7 +35,7 @@ export default function SharedTaskCard({title, description, status, dueDate, pri
           variant={isFollowed ? "bordered" : "solid"}
           onPress={() => setIsFollowed(!isFollowed)}
         >
-         See more
+                <Link onClick={handleSeeDetails}  href={`/myTasks/${TaskDbId}`}> See More</Link>
         </Button>
       </CardHeader>
       <CardBody className="px-3 py-0 text-small text-default-400">
