@@ -89,8 +89,7 @@ console.log(user?.id)
           getTaskById={getTaskById} />
       </div>
        
-      {/* <Collaborators /> */}
-      <div className='flex items-center flex-wrap gap-3 mt-3'>
+      <div className='flex items-center justify-center flex-wrap gap-3 mt-3'>
         {user && allTasks.map((item) => {
           return <TaskCard
             key={item._id}

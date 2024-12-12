@@ -29,10 +29,8 @@ const page = ({params}) => {
 
   
   const [toastVisible, setToastVisible] = useState(false);
-  // const [updatedText, setUpdatedText] = useState(taskDetails?.title)
 
   
-  const [loading, setLoading] = useState(false)
   const [priority, setPriority] = useState('medium')
   const [status, setStatus] = useState('Pending')
   const [updatedTitle, setUpdatedTitle] = useState('')
