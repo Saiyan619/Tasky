@@ -14,12 +14,19 @@ const Tasks = () => {
   const { user } = useUser();
   const [allTasks, setAllTasks] = useState([])
   const [userList, setUserList] = useState([])
+  const [filters, setFilters] = useState({
+    userId: user?.id, // Always include userId
+    status: 'ongoing', // Optional
+    priority: 'high', // Optional
+    search: ''
+});
 
-
+console.log(user?.id)
 
 
   useEffect(() => {
-     if (user) {
+    if (user) {
+       
        getTaskById()
        getAllUsers()
      }
@@ -52,24 +59,31 @@ const Tasks = () => {
     }
   }
 
-  const getSharedTask = async () => {
+
+  const getFilteredTask = async()=>{
     try {
-      await GlobalApi.getSharedTask(user?.id).then(resp => {
-        if (resp.data != []) {
+      if (user) {
+        await GlobalApi.getFilterTasks({
+          userId: user?.id, // Always include userId
+          status: 'ongoing', // Optional
+          priority: 'high', // Optional
+          search: ''
+      }).then(resp => {
           console.log(resp.data)
-        } else {
-          console.log("task not found!!!")
-        }
-        
-      })
-    } catch (error) {
-      console.log(error)
+        })
+      }
+     
+    } catch(error) {
+      console.error(error)
     }
   }
-  return (
+
+
+ return (
     <div className='flex items-center justify-center flex-col'>
       <p>My Tasks</p>
-      <div>
+     <div>
+       <button onClick={getFilteredTask}>get filters</button>
         <CreateTaskDialog
           userList={userList}
           getTaskById={getTaskById} />

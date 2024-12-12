@@ -3,9 +3,11 @@ import React from 'react'
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import GlobalApi from '@/app/_utils/GlobalApi';
-import moment from 'moment/moment';
 import { useUser } from '@clerk/nextjs';
-import {Button} from "@nextui-org/react";
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 
@@ -20,6 +22,7 @@ import DeleteTask from './DeleteTask';
  
 
 const page = ({params}) => {
+    const notify = () => toast("Wow so easy !");
   const router = useRouter();
   const [taskDetails, setTaskDetails] = useState(null)
   const { user } = useUser();
@@ -39,14 +42,6 @@ const page = ({params}) => {
   const [collaborators, setCollaborators] = useState([]);
   const [Date, setDate] = useState(parseDate("2024-04-04"));
   const formattedDate = Date.toDate ? Date.toDate(getLocalTimeZone()) : null;
-  
-  // const formatDate = (isoString) => moment(isoString).format('MMMM Do YYYY, h:mm:ss a');
-
-  // const [toastVisible, setToastVisible] = useState(false);
-  // const [loading, setLoading] = useState(false)
-  // const [title, setTitle] = useState('')
-  // const [priority, setPriority] = useState('medium')
-  // const [status, setStatus] = useState('Pending')
 
 
   useEffect(() => {
@@ -116,23 +111,28 @@ const page = ({params}) => {
 
         console.error("Error Response Status:", status);
         console.error("Error Response Message:", message);
+        notify()
+        // just fucking work for fuck sake
       }
-
-         else {
-            // General error
-            console.error("Error message:", error.message);
-            alert("You cannot update tasks as a viewer");
-        }
     }
 };
 
 
   const deleteATask = async () => {
     try {
-      await GlobalApi.deleteTask(id).then(resp => {
-        console.log(resp.data)
-        console.log("deleted");
-      })
+      if (user.id) {
+        let taskCreatorId = taskDetails.userId
+        if (taskCreatorId && taskCreatorId === user.id) {
+          await GlobalApi.deleteTask(id).then(resp => {
+            console.log(resp.data)
+            console.log("deleted");
+          })
+        } else {
+          console.log("you have to be the creator of the task to delete!!!!!!!")
+        }
+      }
+     
+    
     } catch (error) {
       console.error("Error in updateATask:", error);
 
@@ -172,7 +172,9 @@ const page = ({params}) => {
   return (
     <div className='bg-white m-auto flex  justify-center flex-col p-2'>
 
-     
+<button onClick={notify}>Notify !</button>
+<ToastContainer />
+
       {/* ///////////////////////////////////////////////////////////////// */}
       <div className='p-4'>
       <TaskDetails taskDetails={taskDetails} />
@@ -203,8 +205,7 @@ setCollaborators={setCollaborators}
 
       </div>
 
-     
-
+      
       {/* ///////////////////////////////////////////////////////////////// */}
      
       {/* userId, title, description, status, dueDate, priority, createdAt, updatedAt */}
