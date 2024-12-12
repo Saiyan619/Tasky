@@ -172,10 +172,11 @@ const page = ({params}) => {
   return (
     <div className='bg-white m-auto flex  justify-center flex-col p-2'>
 
-<button onClick={notify}>Notify !</button>
+      {taskDetails ?
+        (<div>
+        <button onClick={notify}>Notify !</button>
 <ToastContainer />
 
-      {/* ///////////////////////////////////////////////////////////////// */}
       <div className='p-4'>
       <TaskDetails taskDetails={taskDetails} />
       </div>
@@ -203,12 +204,13 @@ setCollaborators={setCollaborators}
         
         <DeleteTask deleteATask={deleteATask} />
 
-      </div>
+          </div>
+          </div>
+)
+        :
+        "task does not exist"
+      }
 
-      
-      {/* ///////////////////////////////////////////////////////////////// */}
-     
-      {/* userId, title, description, status, dueDate, priority, createdAt, updatedAt */}
      
     </div>
   )
