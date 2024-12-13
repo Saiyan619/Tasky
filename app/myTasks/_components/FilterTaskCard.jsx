@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from 'react'
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import moment from 'moment/moment';
@@ -7,16 +7,14 @@ import {Card, CardHeader, CardBody, CardFooter, Avatar, Button, AvatarGroup, Chi
 
 
 
-function TaskCard({ key, title, description, status, dueDate, priority, TaskDbId, collaborators }) {
-  const [isFollowed, setIsFollowed] = React.useState(false);
+const FilterTaskCard = ({ key, title, description, status, dueDate, priority, TaskDbId, collaborators }) => {
+    const [isFollowed, setIsFollowed] = React.useState(false);
 
   const formatDate = (isoString) => moment(isoString).format('MMMM Do YYYY')
   const router = useRouter();
   const handleSeeDetails = () => {
     router.push(`/task/${TaskDbId}`)
   }
-
-  console.log(collaborators)
   return (
     <Card key={key} className="w-[300px] mt-5">
     <CardHeader className="justify-between">
@@ -68,4 +66,4 @@ function TaskCard({ key, title, description, status, dueDate, priority, TaskDbId
   )
 }
 
-export default TaskCard
+export default FilterTaskCard

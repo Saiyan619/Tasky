@@ -7,6 +7,9 @@ import GlobalApi from '@/app/_utils/GlobalApi'
 import { useUser } from '@clerk/nextjs'
 import {Button} from "@nextui-org/react";
 import Collaborators from './Collaborators'
+import FilterTaskForm from './FilterTaskForm'
+import FilterTaskCard from './FilterTaskCard'
+
 
 
 
@@ -14,15 +17,20 @@ const Tasks = () => {
   const { user } = useUser();
   const [allTasks, setAllTasks] = useState([])
   const [userList, setUserList] = useState([])
-  const [filters, setFilters] = useState({
-    userId: user?.id, // Always include userId
-    status: 'ongoing', // Optional
-    priority: 'high', // Optional
-    search: ''
-});
+  const [filterTasks, setFilterTasks] = useState([])
+  
+  const [statusFilter, setStatusFilter] = useState('')
+  const [priorityFilter, setPriorityFilter] = useState('')
+  const [searchFilter, setSearchFilter] = useState('')
 
-console.log(user?.id)
 
+  console.log(filterTasks)
+
+  function logger() {
+    console.log(statusFilter)
+    console.log(priorityFilter)
+    console.log(searchFilter)
+  }
 
   useEffect(() => {
     if (user) {
@@ -65,11 +73,12 @@ console.log(user?.id)
       if (user) {
         await GlobalApi.getFilterTasks({
           userId: user?.id, // Always include userId
-          status: 'ongoing', // Optional
-          priority: 'high', // Optional
-          search: ''
+          status: statusFilter, // Optional
+          priority: priorityFilter, // Optional
+          search: searchFilter
       }).then(resp => {
-          console.log(resp.data)
+        console.log(resp.data)
+        setFilterTasks(resp.data)
         })
       }
      
@@ -83,14 +92,27 @@ console.log(user?.id)
     <div className='flex items-center justify-center flex-col'>
       <p>My Tasks</p>
      <div>
-       <button onClick={getFilteredTask}>get filters</button>
         <CreateTaskDialog
           userList={userList}
           getTaskById={getTaskById} />
-      </div>
-       
-      <div className='flex items-center justify-center flex-wrap gap-3 mt-3'>
-        {user && allTasks.map((item) => {
+
+       <FilterTaskForm
+         searchFilter={searchFilter}
+         setSearchFilter={setSearchFilter}
+         priorityFilter={priorityFilter}
+         setPriorityFilter={setPriorityFilter}
+         statusFilter={statusFilter}
+         setStatusFilter={setStatusFilter}
+         getFilteredTask={getFilteredTask}
+         logger={logger}
+       />
+     </div>
+
+
+     {filterTasks.length === 0 
+       ?
+       (  <div className='flex items-center justify-center flex-wrap gap-3 mt-3'>
+        { allTasks.map((item) => {
           return <TaskCard
             key={item._id}
             TaskDbId={item._id}
@@ -102,12 +124,32 @@ console.log(user?.id)
             collaborators={item.collaborators}
             
           />
-
+   
         })}
+   
+   <TaskCard />
+   
+        </div>)
+    
 
-<TaskCard />
+     :
 
-        </div>
+   (  filterTasks.map((item) => {
+      return <FilterTaskCard
+        key={item._id}
+        TaskDbId={item._id}
+        title={item.title}
+        description={item.description}
+        status={item.status}
+        dueDate={item.dueDate}
+        priority={item.priority}
+        collaborators={item.collaborators}
+      />
+      }))
+     }
+
+   
+   
     </div>
   )
 }

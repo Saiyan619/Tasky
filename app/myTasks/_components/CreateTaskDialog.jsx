@@ -3,11 +3,9 @@ import { useState } from "react"
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Checkbox, Input, Link} from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
 import { Avatar, Chip } from "@nextui-org/react";
-import { users } from './data';
 import { Textarea } from "@nextui-org/react";
 import {DatePicker} from "@nextui-org/react";
 import {parseDate, getLocalTimeZone} from "@internationalized/date";
-import { useDateFormatter } from "@react-aria/i18n";
 import GlobalApi from "@/app/_utils/GlobalApi"
 import { useUser } from "@clerk/nextjs"
 import Collaborators from './Collaborators';
