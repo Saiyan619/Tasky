@@ -81,7 +81,21 @@ const handleSubmit = () => {
       GlobalApi.createTask(data).then(resp => {
         console.log(resp)
         console.log(resp.data)
+        console.log(resp.data)
         console.log("task added")
+
+        // Add activity log for "Created"
+        if (resp.data) {
+          const taskId = resp.data?._id; // Get the created task's ID
+          GlobalApi.addActivityLogs(taskId, { 
+            action: "Created", 
+            userId: user?.id,
+            timestamp: Date.now(),
+          }).then(resp => {
+            console.log(resp.data)
+          })
+        }
+        
         // Show toast message
         setLoading(true)
         setToastVisible(true);
@@ -139,7 +153,7 @@ console.log(error)
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
-  console.log(collaborators)
+  // console.log(collaborators)
   // console.log(userList)
 
 
