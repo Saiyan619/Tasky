@@ -90,11 +90,11 @@ const handleSubmit = () => {
           GlobalApi.addActivityLogs(taskId, { 
             action: "Created", 
             userId: user?.id,
-            timestamp: Date.now(),
           }).then(resp => {
             console.log(resp.data)
           })
         }
+
         
         // Show toast message
         setLoading(true)

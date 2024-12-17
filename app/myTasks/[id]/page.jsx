@@ -93,8 +93,24 @@ const page = ({params}) => {
 
         console.log("Sending task update request:", updatedTask);
 
-        const response = await GlobalApi.updateTask(id, updatedTask);
-        console.log("Updated task data from backend:", response.data);
+      // const response = await GlobalApi.updateTask(id, updatedTask);
+
+      GlobalApi.updateTask(id, updatedTask).then(resp => {
+        console.log("Updated task data from backend:", resp.data);
+      })
+      // Add activity log for "Created"
+      if (resp.data) {
+        const taskId = resp.data?._id; // Get the created task's ID
+        GlobalApi.addActivityLogs(taskId, { 
+          action: "Updated", 
+          userId: user?.id,
+          timestamp: Date.now(),
+        }).then(resp => {
+          console.log(resp.data)
+          console.log(resp.data)
+          console.log(resp.data)
+        })
+      }
 
         // Optionally refetch the updated task details
         getTaskDetailsById();
@@ -118,10 +134,10 @@ const page = ({params}) => {
 
   const deleteATask = async () => {
     try {
-      if (user.id) {
-        let taskCreatorId = taskDetails.userId
-        if (taskCreatorId && taskCreatorId === user.id) {
-          await GlobalApi.deleteTask(id).then(resp => {
+      if (user?.id) {
+        let taskCreatorId = taskDetails?.userId
+        if (taskCreatorId && taskCreatorId === user?.id) {
+          await GlobalApi.deleteTask(id, user?.id).then(resp => {
             console.log(resp.data)
             console.log("deleted");
           })
