@@ -6,7 +6,6 @@ import CreateTaskDialog from './CreateTaskDialog'
 import GlobalApi from '@/app/_utils/GlobalApi'
 import { useUser } from '@clerk/nextjs'
 import {Button} from "@nextui-org/react";
-import Collaborators from './Collaborators'
 import FilterTaskForm from './FilterTaskForm'
 import FilterTaskCard from './FilterTaskCard'
 

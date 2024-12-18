@@ -81,39 +81,41 @@ const page = ({params}) => {
 
   const updateATask = async () => {
     try {
-        const updatedTask = {
-            title: updatedTitle,
-            description: updateddesc,
-            status: updatedstatus,
-            priority: updatedpriority,
-            dueDate: formattedDate,
-            collaborators: collaborators,
-            userId: user?.id, // Ensure this is passed from Clerk
-        };
-
-        console.log("Sending task update request:", updatedTask);
-
-      // const response = await GlobalApi.updateTask(id, updatedTask);
-
+      const updatedTask = {
+        title: updatedTitle,
+        description: updateddesc,
+        status: updatedstatus,
+        priority: updatedpriority,
+        dueDate: formattedDate,
+        collaborators: collaborators,
+        userId: user?.id, // Ensure this is passed from Clerk
+      };
+    
+      console.log("Sending task update request:", updatedTask);
+    
+      // Update the task
       GlobalApi.updateTask(id, updatedTask).then(resp => {
         console.log("Updated task data from backend:", resp.data);
-      })
-      // Add activity log for "Created"
-      if (resp.data) {
-        const taskId = resp.data?._id; // Get the created task's ID
-        GlobalApi.addActivityLogs(taskId, { 
-          action: "Updated", 
-          userId: user?.id,
-          timestamp: Date.now(),
-        }).then(resp => {
-          console.log(resp.data)
-          console.log(resp.data)
-          console.log(resp.data)
-        })
-      }
-
+    
+        // Add activity log for "Updated" inside the .then block
+        if (resp.data) {
+          const taskId = resp.data?._id; // Get the updated task's ID
+          GlobalApi.addActivityLogs(taskId, { 
+            action: "Updated", 
+            userId: user?.id,
+          }).then(activityResp => {
+            console.log("Activity log added:", activityResp.data);
+          }).catch(err => {
+            console.error("Error adding activity log:", err);
+          });
+        }
+    
         // Optionally refetch the updated task details
         getTaskDetailsById();
+      }).catch(err => {
+        console.error("Error updating task:", err);
+      });
+    
     } catch (error) {
         // Log and inspect the error structure
         console.error("Error during task update:", error);
@@ -138,8 +140,19 @@ const page = ({params}) => {
         let taskCreatorId = taskDetails?.userId
         if (taskCreatorId && taskCreatorId === user?.id) {
           await GlobalApi.deleteTask(id, user?.id).then(resp => {
+            if (resp.data) {
+              let taskId = resp.data?._id
+           GlobalApi.addActivityLogs(taskId, 
+             {action: 'deleted',
+              userId:user?.id}
+           ).then(resp => {
+              console.log(resp.data)
+            })
+           }
             console.log(resp.data)
             console.log("deleted");
+          
+           
           })
         } else {
           console.log("you have to be the creator of the task to delete!!!!!!!")

@@ -19,7 +19,7 @@ const getFilterTasks = (filters) => {
 };
 
 const addActivityLogs = (id, data) =>
-    axiosClient.post(`/task/activityLog/${id}`, data);
+    axiosClient.post(`/logs/activity-logs/${id}`, data);
 
 const getGlobalActivity = ()=> axiosClient.get('/global-logs')
 

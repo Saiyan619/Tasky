@@ -57,16 +57,17 @@ export default function Home() {
     }
   }
   return (
-    <div>
-      the home page
-      <p>welcome, {user?.firstName}</p>
-      <button onClick={getAllUsers} className="bg-black p-1 rounded text-white cursor-pointer">get user now</button>
-      <button onClick={createUsers}>test create User</button>
-      {userList.map((item) => {
-        return <div>{item?.clerkId}</div>
-      })}
-      <UserButton />
-      {/* <Button>ShadCN</Button> */}
+    <div className="hero bg-base-200 min-h-screen">
+    <div className="hero-content text-center">
+      <div className="max-w-md">
+        <h1 className="text-5xl font-bold">Hello 👋</h1>
+        <span className="text-2xl font-bold">Welcome to tasky</span>
+        <p className="py-6">
+         Make collaboration and organization of task easier
+        </p>
+        <button className="btn btn-primary">Get Started</button>
+      </div>
     </div>
+  </div>
   );
 }

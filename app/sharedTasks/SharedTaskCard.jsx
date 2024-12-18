@@ -27,6 +27,7 @@ export default function SharedTaskCard({title, description, status, dueDate, pri
                   </div>
           </div>
         {/* </div> */}
+        <Link onClick={handleSeeDetails}  href={`/myTasks/${TaskDbId}`}>
         <Button
           className={isFollowed ? "bg-transparent text-foreground border-default-200" : ""}
           color="primary"
@@ -35,8 +36,9 @@ export default function SharedTaskCard({title, description, status, dueDate, pri
           variant={isFollowed ? "bordered" : "solid"}
           onPress={() => setIsFollowed(!isFollowed)}
         >
-                <Link onClick={handleSeeDetails}  href={`/myTasks/${TaskDbId}`}> See More</Link>
-        </Button>
+                 See More
+          </Button>
+          </Link>
       </CardHeader>
       <CardBody className="px-3 py-0 text-small text-default-400">
         <p>

@@ -82,10 +82,6 @@ export default function UpdateTask({
   };
 
 
-  console.log(collaborators)
-
-    console.log(userList)
-    console.log(user)
 
     const handleSelect = (id) => {
         setCollaborators((prev) =>

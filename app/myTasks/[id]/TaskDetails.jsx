@@ -1,6 +1,5 @@
 'use client'
 import React from "react";
-import { useState } from "react"
 import moment from 'moment/moment';
 import { Card, CardHeader, CardBody, CardFooter,Chip, Button } from "@nextui-org/react";
 import {Avatar, AvatarGroup} from "@nextui-org/react";
@@ -15,8 +14,7 @@ export default function TaskDetails({taskDetails}) {
     // const formatDate = (isoString) => moment(isoString).format('MMMM Do YYYY, h:mm:ss a');
   const formatDate = (isoString) => moment(isoString).format('MMMM Do YYYY');
   
-  console.log(taskDetails)
-  console.log(taskDetails?.collaborators)
+console.log(taskDetails)
 
 
   const handleSaveTask = (updatedTask) => {
@@ -109,6 +107,7 @@ export default function TaskDetails({taskDetails}) {
           {taskDetails?.dueDate ? formatDate(taskDetails.dueDate) : 'No date available'}
                     </span>
                   </div>
+
                   
         </CardFooter>
       </Card >)
@@ -119,7 +118,9 @@ export default function TaskDetails({taskDetails}) {
           
       
                   }
-    
+        {taskDetails.activityLogs.map((item) => {
+          return <div><span>{item.action}</span></div>
+})}
     </div>
   )
 }
