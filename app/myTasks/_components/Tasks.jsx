@@ -22,6 +22,8 @@ const Tasks = () => {
   const [priorityFilter, setPriorityFilter] = useState('')
   const [searchFilter, setSearchFilter] = useState('')
 
+  const [useSkeleten, setUseSkeleten] = useState(false)
+
 
   console.log(filterTasks)
 
@@ -53,6 +55,7 @@ const Tasks = () => {
   
 
   const getTaskById = async () => {
+    setUseSkeleten(true)
     try {
       await GlobalApi.getTaskByClerkId(user?.id).then(resp => {
         console.log(resp)
@@ -60,6 +63,7 @@ const Tasks = () => {
          setAllTasks(resp.data)
         //  console.log(allTasks)
         console.log("these are all my tasks")
+        setUseSkeleten(false)
       })
     } catch (error) {
       console.log(error)
@@ -88,7 +92,8 @@ const Tasks = () => {
 
 
  return (
-    <div className='flex items-center justify-center flex-col'>
+    <div className=''>
+    <div className=''>
       <p>My Tasks</p>
      <div>
         <CreateTaskDialog
@@ -110,7 +115,45 @@ const Tasks = () => {
 
      {filterTasks.length === 0 
        ?
-       (  <div className='flex items-center justify-center flex-wrap gap-3 mt-3'>
+       (useSkeleten ?
+         <div className='flex items-center justify-between gap-5'>
+         <div className="flex w-52 flex-col gap-4">
+        <div className="flex items-center gap-4">
+          <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
+          <div className="flex flex-col gap-4">
+            <div className="skeleton h-4 w-20"></div>
+            <div className="skeleton h-4 w-28"></div>
+          </div>
+        </div>
+        <div className="skeleton h-32 w-full"></div>
+           </div>
+
+            <div className="flex w-52 flex-col gap-4">
+        <div className="flex items-center gap-4">
+          <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
+          <div className="flex flex-col gap-4">
+            <div className="skeleton h-4 w-20"></div>
+            <div className="skeleton h-4 w-28"></div>
+          </div>
+        </div>
+        <div className="skeleton h-32 w-full"></div>
+           </div>
+
+            <div className="flex w-52 flex-col gap-4">
+        <div className="flex items-center gap-4">
+          <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
+          <div className="flex flex-col gap-4">
+            <div className="skeleton h-4 w-20"></div>
+            <div className="skeleton h-4 w-28"></div>
+          </div>
+        </div>
+        <div className="skeleton h-32 w-full"></div>
+           </div>
+
+           
+           </div>
+         :
+         (<div className='flex items-center justify-center flex-wrap gap-3 mt-3'>
         { allTasks.map((item) => {
           return <TaskCard
             key={item._id}
@@ -126,9 +169,10 @@ const Tasks = () => {
    
         })}
    
-   <TaskCard />
+  
    
         </div>)
+        )
     
 
      :
@@ -149,6 +193,7 @@ const Tasks = () => {
 
    
    
+    </div>
     </div>
   )
 }
