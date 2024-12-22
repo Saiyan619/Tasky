@@ -56,7 +56,7 @@ export default function RootLayout({ children }) {
             <div className="drawer lg:drawer-open">
               <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       {/* label former postion */}
-  <div className="drawer-content flex flex-col items-center justify-center">
+  <div className="drawer-content">
                   {/* Page content here */}
                   <NextUIProvider>
                   {children}

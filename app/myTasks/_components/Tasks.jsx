@@ -94,8 +94,8 @@ const Tasks = () => {
  return (
     <div className=''>
     <div className=''>
-      <p>My Tasks</p>
-     <div>
+      <p className='text-center'>My Tasks</p>
+     <div className='flex items-center gap-5 justify-center'>
         <CreateTaskDialog
           userList={userList}
           getTaskById={getTaskById} />
@@ -116,7 +116,7 @@ const Tasks = () => {
      {filterTasks.length === 0 
        ?
        (useSkeleten ?
-         <div className='flex items-center justify-between gap-5'>
+         <div className='flex items-center justify-center gap-5'>
          <div className="flex w-52 flex-col gap-4">
         <div className="flex items-center gap-4">
           <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
@@ -177,7 +177,7 @@ const Tasks = () => {
 
      :
 
-   (  filterTasks.map((item) => {
+   ( <div className='flex items-center justify-center'> {filterTasks.map((item) => {
       return <FilterTaskCard
         key={item._id}
         TaskDbId={item._id}
@@ -188,7 +188,8 @@ const Tasks = () => {
         priority={item.priority}
         collaborators={item.collaborators}
       />
-      }))
+   })}
+      </div>   )
      }
 
    

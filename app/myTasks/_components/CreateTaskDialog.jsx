@@ -158,7 +158,7 @@ console.log(error)
 
 
   return (
-    <>
+ <div>
       <Button onPress={onOpen} color="primary">Create New Task</Button>
       <Modal 
         isOpen={isOpen} 
@@ -396,7 +396,7 @@ export default Collaborators;
           )}
         </ModalContent>
       </Modal>
-    </>
+      </div>
   )
 }
 

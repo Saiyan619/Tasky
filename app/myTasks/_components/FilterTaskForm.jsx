@@ -36,7 +36,7 @@ logger
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
   
     return (
-      <>
+    <div>
         <Button onPress={onOpen}>Search Task</Button>
         <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
           <ModalContent>
@@ -114,7 +114,7 @@ logger
             )}
           </ModalContent>
         </Modal>
-      </>
+        </div>
     );
   }
   
