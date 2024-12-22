@@ -116,7 +116,7 @@ const Tasks = () => {
      {filterTasks.length === 0 
        ?
        (useSkeleten ?
-         <div className='flex items-center justify-center gap-5'>
+         <div className='flex items-center justify-center gap-3 mt-3'>
          <div className="flex w-52 flex-col gap-4">
         <div className="flex items-center gap-4">
           <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
@@ -177,7 +177,7 @@ const Tasks = () => {
 
      :
 
-   ( <div className='flex items-center justify-center'> {filterTasks.map((item) => {
+   ( <div className='flex items-center justify-center flex-wrap gap-3 mt-3'> {filterTasks.map((item) => {
       return <FilterTaskCard
         key={item._id}
         TaskDbId={item._id}

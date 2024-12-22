@@ -110,17 +110,53 @@ console.log(taskDetails)
 
                   
         </CardFooter>
-      </Card >)
+        </Card >
+        )
       
       :
 
-    " Task doest not exist"
+      ( <div className="flex w-full flex-col gap-4">
+        <div className="flex items-center gap-4">
+          <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
+          <div className="flex flex-col gap-4">
+            <div className="skeleton h-4 w-20"></div>
+            <div className="skeleton h-4 w-28"></div>
+          </div>
+        </div>
+        <div className="skeleton h-32 w-full"></div>
+           </div>)
           
       
                   }
-        {taskDetails.activityLogs.map((item) => {
-          return <div><span>{item.action}</span></div>
-})}
+
+        <div className="mt-5">
+        <span >Activity History</span>
+          <div className="overflow-x-auto">
+  <table className="table">
+    {/* head */}
+    <thead>
+      <tr>
+        <th>Activity</th>
+        <th>By</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+     
+                
+                {taskDetails?.activityLogs.map((item) => {
+                  return <tr className="bg-base-200">
+                    <td>{item.action}</td>
+                    <td>{item.userEmail}</td>
+                    <td>{formatDate(item.timestamp)}</td>
+                   </tr>
+                })}
+      
+    </tbody>
+  </table>
+</div>
+        </div>
+        
     </div>
   )
 }

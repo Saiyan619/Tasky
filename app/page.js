@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import GlobalApi from "@/app/_utils/GlobalApi";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Home() {
   const { user } = useUser();
@@ -61,11 +62,15 @@ export default function Home() {
     <div className="hero-content text-center">
       <div className="max-w-md">
         <h1 className="text-5xl font-bold">Hello 👋</h1>
-        <span className="text-2xl font-bold">Welcome to tasky</span>
+        <span className="text-2xl font-bold">Welcome to Tasky</span>
         <p className="py-6">
-         Make collaboration and organization of task easier
+         Make collaboration and organization of Task easier
         </p>
-        <button className="btn btn-primary">Get Started</button>
+
+          <Link href="/home">
+            <button className="btn btn-primary">Get Started📝</button>
+          </Link>
+       
       </div>
     </div>
   </div>

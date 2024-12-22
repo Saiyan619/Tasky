@@ -40,6 +40,8 @@ const page = ({params}) => {
   const [collaborators, setCollaborators] = useState([]);
   const [Date, setDate] = useState(parseDate("2024-04-04"));
   const formattedDate = Date.toDate ? Date.toDate(getLocalTimeZone()) : null;
+    const [useSkeleten, setUseSkeleten] = useState(false)
+  
 
 
   useEffect(() => {
@@ -69,10 +71,12 @@ const page = ({params}) => {
   const {id} = params
 
   const getTaskDetailsById = async () => {
+    setUseSkeleten(true)
     try {
       GlobalApi.getTaskDetails(id).then(resp => {
         // console.log(resp.data)
         setTaskDetails(resp.data)
+        setUseSkeleten(false)
       })
     } catch (error) {
       console.log(error)
@@ -199,9 +203,9 @@ const page = ({params}) => {
   return (
     <div className='bg-white m-auto flex  justify-center flex-col p-2'>
 
-      {taskDetails ?
+      {!useSkeleten ?
         (<div>
-        <button onClick={notify}>Notify !</button>
+        {/* <button onClick={notify}>Notify !</button> */}
 <ToastContainer />
 
       <div className='p-4'>
@@ -235,7 +239,16 @@ setCollaborators={setCollaborators}
           </div>
 )
         :
-        "task does not exist"
+       ( <div className="flex w-full flex-col gap-4">
+        <div className="flex items-center gap-4">
+          <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
+          <div className="flex flex-col gap-4">
+            <div className="skeleton h-4 w-20"></div>
+            <div className="skeleton h-4 w-28"></div>
+          </div>
+        </div>
+        <div className="skeleton h-32 w-full"></div>
+           </div>)
       }
 
      
