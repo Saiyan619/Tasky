@@ -312,10 +312,10 @@ console.log(filteredUser); // Logs matched users
                   </div>
                   
 
-                  <div  className='max-h-[70px] overflow-y-scroll'>
+                  <div  className='max-h-[100px] overflow-y-scroll'>
             {userList.length > 0 ? (
                 userList.map((user) => (
-                    <div key={user.clerkId} style={{ display: 'flex', alignItems: 'center' }}>
+                    <div key={user.clerkId} className='flex items-center gap-2'>
                         <input
                             type="checkbox"
                             onChange={() => toggleCollaborator(user)}
@@ -333,15 +333,15 @@ console.log(filteredUser); // Logs matched users
             {/* List of selected collaborators */}
             <h3>Selected Collaborators</h3>
             {collaborators.map((collab) => (
-                <div key={collab.clerkId} style={{ display: 'flex', alignItems: 'center' }}>
+                <div key={collab.clerkId} className='flex items-center gap-1'>
                 <span>{collab.name}</span>
-                <div className="flex w-full max-w-xs flex-col gap-2">
+                <div className="flex flex-col gap-2 mt-2">
       <Select
-        label="Priorty"
+        label="Role"
         variant="bordered"
-        placeholder="Select Priority"
+        placeholder="Select Role"
         // selectedKeys={[priority]}
-        className="max-w-xs"
+        className="w-40"
                     value={collab.role}
                     onChange={(e) => updateRole(collab.clerkId, e.target.value)}
       >
@@ -358,10 +358,10 @@ console.log(filteredUser); // Logs matched users
             
           </SelectItem>
       </Select>
-      <p className="text-small text-default-500">Selected: {collab.role}</p>
+      {/* <p className="text-small text-default-500">Selected: {collab.role}</p> */}
                 </div>
                 
-                    <select
+                    {/* <select
                         style={{ marginLeft: '10px' }}
                         value={collab.role}
                         onChange={(e) => updateRole(collab.clerkId, e.target.value)}
@@ -369,7 +369,7 @@ console.log(filteredUser); // Logs matched users
                         <option value="owner">Owner</option>
                         <option value="collaborator">Collaborator</option>
                         <option value="viewer">Viewer</option>
-                    </select>
+                    </select> */}
                 </div>
             ))}
 
