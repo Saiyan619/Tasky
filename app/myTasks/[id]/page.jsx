@@ -21,7 +21,8 @@ import DeleteTask from './DeleteTask';
 
  
 
-const page = ({params}) => {
+const page = ({ params }) => {
+  
     const notify = () => toast("Wow so easy !");
   const router = useRouter();
   const [taskDetails, setTaskDetails] = useState(null)

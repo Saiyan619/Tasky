@@ -29,6 +29,8 @@ const CreateTaskDialog = ({getTaskById, userList}) => {
   const formattedDate = Date.toDate ? Date.toDate(getLocalTimeZone()) : null;
   const [collaborators, setCollaborators] = useState([]);
   const [users, setUsers] = useState([]); // Holds the fetched users
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredUser, setFilteredUsers] = useState(userList);
 
 
    // Handle adding/removing collaborators
@@ -156,6 +158,22 @@ console.log(error)
   // console.log(collaborators)
   // console.log(userList)
 
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    setFilteredUsers(searchUsers(userList, query));
+};
+
+const searchUsers = (users, query) => {
+    if (!query) return users;
+    return users.filter((user) =>
+        user.email.toLowerCase().includes(query.toLowerCase())
+    );
+};
+
+
+// const query = "hans"; // Example search query
+// const filteredUser = searchUsers(userList, query);
+console.log(filteredUser); // Logs matched users
 
   return (
  <div>
@@ -246,62 +264,7 @@ console.log(error)
                 
                 
                 
-                 <div className="w-64">
-      {/* Trigger Button */}
-      <button
-        onClick={toggleDropdown}
-        className="w-full border rounded-md px-4 py-2 bg-white text-left cursor-pointer"
-      >
-        <div
-          className="flex flex-wrap gap-1 max-h-20 overflow-y-auto"
-          style={{ maxHeight: "80px" }}
-        >
-          {collaborators.length > 0 ? (
-            collaborators.map((id) => (
-              <span
-                key={id}
-                className="bg-blue-500 text-white px-2 py-1 rounded-md text-sm"
-              >
-                {userList.find((opt) => opt.clerkId === id)?.name}
-              </span>
-            ))
-          ) : (
-            <span className="text-gray-500">Select options...</span>
-          )}
-        </div>
-      </button>
 
-      {/* Dropdown */}
-      {isDropdownOpen && (
-        <div
-          className="mt-2 w-full bg-white border rounded-md shadow-md z-10 overflow-y-auto"
-          style={{ maxHeight: "150px" }}
-        >
-          {userList.map((option) => (
-            <div
-              key={option.clerkId}
-              onClick={() => handleSelect(option.clerkId)}
-              className={`px-4 py-2 cursor-pointer ${
-                collaborators.includes(option.clerkId) ? "bg-blue-100" : "hover:bg-gray-100"
-              }`}
-            >
-              {option.email}
-            </div>
-          ))}
-        </div>
-                  )}       
-
-
-      {/* Display selected items */}
-            <div className="mt-4">
-        <strong>Selected:</strong>{" "}
-        {collaborators.length > 0
-          ? selected
-              .map((id) => userList.find((opt) => opt.clerkId === id)?.email)
-              .join(", ")
-          : "None"}
-      </div>
-    </div>
 
 {/* ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////// */}
@@ -310,7 +273,46 @@ console.log(error)
    
         <div>
             {/* List of available users */}
-            <h3>Available Users</h3>
+                  <h3>Available Users</h3>
+
+                  <Input
+                  autoFocus
+                  label="Search for a user"
+                  placeholder="abc@gmail.com"
+                  variant="bordered"
+                  labelPlacement="outside"
+                  value={searchQuery}
+                  onChange={(e) => handleSearch(e.target.value)}
+                  />
+
+                   {/* <button
+                    onClick={handleSearch}
+                    className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none"
+                >search</button> */}
+                  
+                    {/* Display Filtered Users */}
+            <div className="mt-4 max-h-48 overflow-y-auto border border-gray-300 rounded-md p-2">
+                {filteredUser?.length > 0 ? (
+                      filteredUser?.map((user, index) => (
+                      <div>
+                        {/* <p key={index} className="py-1">
+                             {user.email}
+                        </p> */}
+                         <input
+                         type="checkbox"
+                         onChange={() => toggleCollaborator(user)}
+                         checked={collaborators.some((c) => c.clerkId === user.clerkId)}
+                     />
+                     <span className='ml-2 text-sm'>{user.email}</span>
+                 </div>
+                    ))
+                ) : (
+                    <p className="text-sm text-gray-500">No users found...</p>
+                )}
+                  </div>
+                  
+
+                  <div  className='max-h-[70px] overflow-y-scroll'>
             {userList.length > 0 ? (
                 userList.map((user) => (
                     <div key={user.clerkId} style={{ display: 'flex', alignItems: 'center' }}>
@@ -326,11 +328,39 @@ console.log(error)
                 <p>Loading users...</p>
             )}
 
+                  </div>
+                  
             {/* List of selected collaborators */}
             <h3>Selected Collaborators</h3>
             {collaborators.map((collab) => (
                 <div key={collab.clerkId} style={{ display: 'flex', alignItems: 'center' }}>
-                    <span>{collab.name}</span>
+                <span>{collab.name}</span>
+                <div className="flex w-full max-w-xs flex-col gap-2">
+      <Select
+        label="Priorty"
+        variant="bordered"
+        placeholder="Select Priority"
+        // selectedKeys={[priority]}
+        className="max-w-xs"
+                    value={collab.role}
+                    onChange={(e) => updateRole(collab.clerkId, e.target.value)}
+      >
+        <SelectItem key="owner">
+        Owner
+                      </SelectItem>
+                      
+                      <SelectItem key="collaborator">
+                      Collaborator
+                      </SelectItem>
+
+                      <SelectItem key="high">
+                      viewer
+            
+          </SelectItem>
+      </Select>
+      <p className="text-small text-default-500">Selected: {collab.role}</p>
+                </div>
+                
                     <select
                         style={{ marginLeft: '10px' }}
                         value={collab.role}
@@ -344,13 +374,12 @@ console.log(error)
             ))}
 
                   
-                  <button onClick={handleSubmit} style={{ marginTop: '20px' }}>
+                  {/* <button onClick={handleSubmit} style={{ marginTop: '20px' }}>
                 Submit
-            </button>
+            </button> */}
         </div>
   
 
-export default Collaborators;
 
 {/* ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////// */}
