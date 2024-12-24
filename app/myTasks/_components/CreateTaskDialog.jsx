@@ -2,33 +2,32 @@ import React from 'react'
 import { useState } from "react"
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Checkbox, Input, Link} from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
-import { Avatar, Chip } from "@nextui-org/react";
 import { Textarea } from "@nextui-org/react";
 import {DatePicker} from "@nextui-org/react";
 import {parseDate, getLocalTimeZone} from "@internationalized/date";
 import GlobalApi from "@/app/_utils/GlobalApi"
 import { useUser } from "@clerk/nextjs"
-import Collaborators from './Collaborators';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
 
-const CreateTaskDialog = ({getTaskById, userList}) => {
+
+const CreateTaskDialog = ({ getTaskById, userList }) => {
+  
 
   const { user } = useUser();
 
     const [toastVisible, setToastVisible] = useState(false);
   const [loading, setLoading] = useState(false)
-  const [value, setValue] = React.useState("");
     const [title, setTitle] = useState('')
   const [priority, setPriority] = useState('medium')
   const [status, setStatus] = useState('Pending')
   const [desc, setDesc] = useState('')
-  const [dueDate, setDueDate] = useState(null)
   const [Date, setDate] = useState(parseDate("2024-04-04"));
   const formattedDate = Date.toDate ? Date.toDate(getLocalTimeZone()) : null;
   const [collaborators, setCollaborators] = useState([]);
-  const [users, setUsers] = useState([]); // Holds the fetched users
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredUser, setFilteredUsers] = useState(userList);
 
@@ -58,9 +57,6 @@ const updateRole = (clerkId, role) => {
     );
 };
 
-const handleSubmit = () => {
-    onSubmit(collaborators);
-};
 
 
 
@@ -100,7 +96,7 @@ const handleSubmit = () => {
         
         // Show toast message
         setLoading(true)
-        setToastVisible(true);
+        notify()
         getTaskById()
 
         // Clear input fields
@@ -109,19 +105,11 @@ const handleSubmit = () => {
         setStatus("");
         setPriority("");
 
-        // Hide toast after 3 seconds
-        setTimeout(() => {
-          setLoading(false);
-        }, 2000);
-        // // Hide toast after 3 seconds
-        setTimeout(() => {
-          setToastVisible(false);
-        }, 5000);
-      
       })
 
     } catch (error) {
-console.log(error)
+      console.log(error)
+      notifyError()
     }
 
   }
@@ -142,8 +130,7 @@ console.log(error)
   }
   
 
-  const [selected, setSelected] = useState([]);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
 
   const handleSelect = (id) => {
     setCollaborators((prev) =>
@@ -152,9 +139,7 @@ console.log(error)
   };
 
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen((prev) => !prev);
-  };
+ 
   // console.log(collaborators)
   // console.log(userList)
 
@@ -173,7 +158,32 @@ const searchUsers = (users, query) => {
 
 // const query = "hans"; // Example search query
 // const filteredUser = searchUsers(userList, query);
-console.log(filteredUser); // Logs matched users
+  console.log(filteredUser); // Logs matched users
+  
+
+    const notify = () => toast.success('🦄 Task Created', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      // transition: Bounce,
+    });
+  
+  const notifyError = () => toast.error("Error, Something's wrong", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      // transition: Bounce,
+      });
 
   return (
  <div>
@@ -186,10 +196,13 @@ console.log(filteredUser); // Logs matched users
         backdrop='blur'
         size='2xl'
       >
+      
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">Create Task</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">Create Task
+                <ToastContainer />
+              </ModalHeader>
               <ModalBody>
                 <Input
                   autoFocus
@@ -273,7 +286,7 @@ console.log(filteredUser); // Logs matched users
    
         <div>
             {/* List of available users */}
-                  <h3>Available Users</h3>
+                 
 
                   <Input
                   autoFocus
@@ -291,7 +304,7 @@ console.log(filteredUser); // Logs matched users
                 >search</button> */}
                   
                     {/* Display Filtered Users */}
-            <div className="mt-4 max-h-48 overflow-y-auto border border-gray-300 rounded-md p-2">
+            <div className="mt-4 m-h-32 overflow-y-scroll border border-gray-300 rounded-md p-2">
                 {filteredUser?.length > 0 ? (
                       filteredUser?.map((user, index) => (
                       <div>
@@ -311,7 +324,7 @@ console.log(filteredUser); // Logs matched users
                 )}
                   </div>
                   
-
+                  <h3>Available Users</h3>
                   <div  className='max-h-[100px] overflow-y-scroll'>
             {userList.length > 0 ? (
                 userList.map((user) => (

@@ -23,7 +23,51 @@ import DeleteTask from './DeleteTask';
 
 const page = ({ params }) => {
   
-    const notify = () => toast("Wow so easy !");
+     const notify = () => toast.success('📝Task Created', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        // transition: Bounce,
+     });
+  const notifyDelete = () => toast.error('📝Task Deleted', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        // transition: Bounce,
+      });  const notifyUpdate = () => toast.success('📝Task Updated', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        // transition: Bounce,
+      });
+    
+    const notifyError = () => toast.error("Error, Something's wrong", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        // transition: Bounce,
+        });
+  
   const router = useRouter();
   const [taskDetails, setTaskDetails] = useState(null)
   const { user } = useUser();
@@ -76,7 +120,7 @@ const page = ({ params }) => {
     try {
       GlobalApi.getTaskDetails(id).then(resp => {
         // console.log(resp.data)
-        setTaskDetails(resp.data)
+        setTaskDetails(resp?.data)
         setUseSkeleten(false)
       })
     } catch (error) {
@@ -101,6 +145,7 @@ const page = ({ params }) => {
       // Update the task
       GlobalApi.updateTask(id, updatedTask).then(resp => {
         console.log("Updated task data from backend:", resp.data);
+        notify()
     
         // Add activity log for "Updated" inside the .then block
         if (resp.data) {
@@ -123,7 +168,8 @@ const page = ({ params }) => {
     
     } catch (error) {
         // Log and inspect the error structure
-        console.error("Error during task update:", error);
+      console.error("Error during task update:", error);
+      notifyError()
 
         // Handle Axios-specific error structure
       if (error.response) {
@@ -132,7 +178,6 @@ const page = ({ params }) => {
 
         console.error("Error Response Status:", status);
         console.error("Error Response Message:", message);
-        notify()
         // just fucking work for fuck sake
       }
     }
@@ -156,9 +201,13 @@ const page = ({ params }) => {
            }
             console.log(resp.data)
             console.log("deleted");
+            notifyDelete()
+
           
-           
+            
           })
+           // Optionally refetch the updated task details
+        getTaskDetailsById();
         } else {
           console.log("you have to be the creator of the task to delete!!!!!!!")
         }
@@ -207,7 +256,7 @@ const page = ({ params }) => {
       {!useSkeleten ?
         (<div>
         {/* <button onClick={notify}>Notify !</button> */}
-<ToastContainer />
+                <ToastContainer />
 
       <div className='p-4'>
       <TaskDetails taskDetails={taskDetails} />
@@ -231,10 +280,11 @@ setUpdatedDesc={setUpdatedDesc}
         setDate={setDate}
         formattedDate={formattedDate}
         collaborators={collaborators}
-setCollaborators={setCollaborators}
+              setCollaborators={setCollaborators}
+              notifyUpdate={notifyUpdate}
         />
         
-        <DeleteTask deleteATask={deleteATask} />
+            <DeleteTask deleteATask={deleteATask} notifyDelete={notifyDelete} />
 
           </div>
           </div>

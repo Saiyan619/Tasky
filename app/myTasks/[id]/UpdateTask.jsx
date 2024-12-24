@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react"
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Checkbox, Input, Link } from "@nextui-org/react";
-import {parseDate, getLocalTimeZone} from "@internationalized/date";
 import { Select, SelectItem } from "@nextui-org/react";
-import { Avatar, Chip } from "@nextui-org/react";
 import { Textarea } from "@nextui-org/react";
 import {DatePicker} from "@nextui-org/react";
 import { useUser } from "@clerk/nextjs";
 import GlobalApi from "@/app/_utils/GlobalApi";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function UpdateTask({
   updateATask,
@@ -24,14 +25,29 @@ export default function UpdateTask({
   setDate,
   formattedDate,
     collaborators,
-    setCollaborators}) {
+  setCollaborators,
+  notifyUpdate}) {
     
     const {user} = useUser()
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [userList, setUserList] = useState([])
   const [selected, setSelected] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [filteredUser, setFilteredUsers] = useState(userList);
 
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    setFilteredUsers(searchUsers(userList, query));
+};
+
+  const searchUsers = (users, query) => {
+  let foodder = ''
+    if (!query) return foodder;
+    return users.filter((user) =>
+        user.email.toLowerCase().includes(query.toLowerCase())
+    );
+};
 
 
 
@@ -43,6 +59,11 @@ export default function UpdateTask({
     
 
   // console.log(formattedDate)
+  const handleUpdate = () => { 
+    updateATask();
+    // onClose();
+    notifyUpdate() 
+  }
 
   const getAllUsers = async () => {
         try {
@@ -100,22 +121,27 @@ export default function UpdateTask({
             setUpdatedPriority(e.target.value);
     };
 
+  
 
   return (
     <div>
       {/* <Button  onPress={onOpen}>Open Modal</Button> */}
       <Button onClick={getAllUsers} onPress={onOpen}>Update Task</Button>
-          <Modal
+                          
+      <Modal
+        
               isOpen={isOpen}
               onOpenChange={onOpenChange}
               placement="top-center"
         scrollBehavior="inside"
         backdrop='blur'
         size='2xl'
-          >
+      >
         <ModalContent>
+      
           {(onClose) => (
             <>
+              
               <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
                           <ModalBody>
                               
@@ -131,7 +157,6 @@ export default function UpdateTask({
                               
               <div className='flex gap-2'>
                   <div className="flex w-full max-w-xs flex-col gap-2">
-                  {/* ['pending', 'ongoing', 'completed', 'failed'] */}
       <Select
         label="Status"
         variant="bordered"
@@ -190,117 +215,128 @@ export default function UpdateTask({
                 
 
                 
-                {/* ///////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////// */}
+                    
+                    
+                    
     
-
-   
-        <div>
-            {/* List of available users */}
-            <h3>Available Users</h3>
-            {userList.length > 0 ? (
-                userList.map((user) => (
-                    <div key={user.clerkId} style={{ display: 'flex', alignItems: 'center' }}>
-                        <input
-                            type="checkbox"
-                            onChange={() => toggleCollaborator(user)}
-                            checked={collaborators.some((c) => c.clerkId === user.clerkId)}
-                        />
-                        <span style={{ marginLeft: '10px' }}>{user.email}</span>
-                    </div>
-                ))
-            ) : (
-                <p>Loading users...</p>
-            )}
-
-            {/* List of selected collaborators */}
-            <h3>Selected Collaborators</h3>
-            {collaborators.map((collab) => (
-                <div key={collab.clerkId} style={{ display: 'flex', alignItems: 'center' }}>
+    
+    {/* ///////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////// */}
+        
+    
+       
+            <div>
+                {/* List of available users */}
+                     
+    
+                      <Input
+                      autoFocus
+                      label="Search for a user"
+                      placeholder="abc@gmail.com"
+                      variant="bordered"
+                      labelPlacement="outside"
+                      value={searchQuery}
+                      onChange={(e) => handleSearch(e.target.value)}
+                      />
+    
+                       {/* <button
+                        onClick={handleSearch}
+                        className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none"
+                    >search</button> */}
+                      
+                        {/* Display Filtered Users */}
+                <div className="mt-4 m-h-32 overflow-y-scroll border border-gray-300 rounded-md p-2">
+                    {filteredUser?.length > 0 ? (
+                          filteredUser?.map((user, index) => (
+                          <div>
+                            {/* <p key={index} className="py-1">
+                                 {user.email}
+                            </p> */}
+                             <input
+                             type="checkbox"
+                             onChange={() => toggleCollaborator(user)}
+                             checked={collaborators.some((c) => c.clerkId === user.clerkId)}
+                         />
+                         <span className='ml-2 text-sm'>{user.email}</span>
+                     </div>
+                        ))
+                    ) : (
+                        <p className="text-sm text-gray-500">No users found...</p>
+                    )}
+                      </div>
+                      
+                      <h3>Available Users</h3>
+                      <div  className='max-h-[100px] overflow-y-scroll'>
+                {userList.length > 0 ? (
+                    userList.map((user) => (
+                        <div key={user.clerkId} className='flex items-center gap-2'>
+                            <input
+                                type="checkbox"
+                                onChange={() => toggleCollaborator(user)}
+                                checked={collaborators.some((c) => c.clerkId === user.clerkId)}
+                            />
+                            <span style={{ marginLeft: '10px' }}>{user.email}</span>
+                        </div>
+                    ))
+                ) : (
+                    <p>Loading users...</p>
+                )}
+    
+                      </div>
+                      
+                {/* List of selected collaborators */}
+                <h3>Selected Collaborators</h3>
+                {collaborators.map((collab) => (
+                    <div key={collab.clerkId} className='flex items-center gap-1'>
                     <span>{collab.name}</span>
-                    <select
-                        style={{ marginLeft: '10px' }}
+                    <div className="flex flex-col gap-2 mt-2">
+          <Select
+            label="Role"
+            variant="bordered"
+            placeholder="Select Role"
+            // selectedKeys={[priority]}
+            className="w-40"
                         value={collab.role}
                         onChange={(e) => updateRole(collab.clerkId, e.target.value)}
-                    >
-                        <option value="owner">Owner</option>
-                        <option value="collaborator">Collaborator</option>
-                        <option value="viewer">Viewer</option>
-                    </select>
-                </div>
-            ))}
-
-                  
-                  {/* <button onClick={handleSubmit} style={{ marginTop: '20px' }}> */}
-                Submit
-            {/* </button> */}
-        </div>
-  
-
-export default Collaborators;
-
-{/* ///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////// */}
+          >
+            <SelectItem key="owner">
+            Owner
+                          </SelectItem>
+                          
+                          <SelectItem key="collaborator">
+                          Collaborator
+                          </SelectItem>
+    
+                          <SelectItem key="high">
+                          viewer
                 
-
-                                  
-                 <div className="w-64">
-      {/* Trigger Button */}
-      <button
-        onClick={toggleDropdown}
-        className="w-full border rounded-md px-4 py-2 bg-white text-left cursor-pointer"
-      >
-        <div
-          className="flex flex-wrap gap-1 max-h-20 overflow-y-auto"
-          style={{ maxHeight: "80px" }}
-        >
-          {collaborators.length > 0 ? (
-            collaborators.map((id) => (
-              <span
-                key={id}
-                className="bg-blue-500 text-white px-2 py-1 rounded-md text-sm"
-              >
-                {userList.find((opt) => opt._id === id)?.name}
-              </span>
-            ))
-          ) : (
-            <span className="text-gray-500">Select options...</span>
-          )}
-        </div>
-      </button>
-
-      {/* Dropdown */}
-      {isDropdownOpen && (
-        <div
-          className="mt-2 w-full bg-white border rounded-md shadow-md z-10 overflow-y-auto"
-          style={{ maxHeight: "150px" }}
-        >
-          {userList.map((option) => (
-            <div
-              key={option.clerkId}
-              onClick={() => handleSelect(option._id)}
-              className={`px-4 py-2 cursor-pointer ${
-                collaborators.includes(option._id) ? "bg-blue-100" : "hover:bg-gray-100"
-              }`}
-            >
-              {option.email}
+              </SelectItem>
+          </Select>
+          {/* <p className="text-small text-default-500">Selected: {collab.role}</p> */}
+                    </div>
+                    
+                        {/* <select
+                            style={{ marginLeft: '10px' }}
+                            value={collab.role}
+                            onChange={(e) => updateRole(collab.clerkId, e.target.value)}
+                        >
+                            <option value="owner">Owner</option>
+                            <option value="collaborator">Collaborator</option>
+                            <option value="viewer">Viewer</option>
+                        </select> */}
+                    </div>
+                ))}
+    
+                      
+                      {/* <button onClick={handleSubmit} style={{ marginTop: '20px' }}>
+                    Submit
+                </button> */}
             </div>
-          ))}
-        </div>
-                  )}
-                  
-
-
-      {/* Display selected items */}
-      <div className="mt-4">
-        <strong>Selected:</strong>{" "}
-        {collaborators.length > 0
-          ? selected
-              .map((clerkId) => userList.find((opt) => opt.clerkId === clerkId)?.email)
-              .join(", ")
-          : "None"}
-      </div>
-    </div>
+      
+    
+    
+    {/* ///////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////// */}
 
                               
                                 
@@ -332,7 +368,7 @@ export default Collaborators;
                 <Button color="danger" variant="light" onPress={onClose}>
                   cancel
                 </Button>
-                <Button onClick={updateATask} color="primary">
+                <Button onClick={handleUpdate} color="primary">
                   Update
                 </Button>
               </ModalFooter>

@@ -1,9 +1,14 @@
 import React from "react";
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
 
-export default function DeleteTask({deleteATask}) {
+export default function DeleteTask({deleteATask, notifyDelete}) {
   const {isOpen, onOpen, onClose} = useDisclosure();
-
+ 
+  const handleDelete = () => { 
+    deleteATask();
+    // onClose();
+    notifyDelete()
+  }
 
   return (
     <div>
@@ -31,7 +36,7 @@ export default function DeleteTask({deleteATask}) {
                 <Button color="primary" onPress={onClose}>
                   Close
                 </Button>
-                <Button onClick={deleteATask} color="danger">
+                <Button onClick={handleDelete} color="danger">
                   Delete
                 </Button>
               </ModalFooter>

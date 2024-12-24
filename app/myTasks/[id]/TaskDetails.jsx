@@ -2,7 +2,8 @@
 import React from "react";
 import moment from 'moment/moment';
 import { Card, CardHeader, CardBody, CardFooter,Chip, Button } from "@nextui-org/react";
-import {Avatar, AvatarGroup} from "@nextui-org/react";
+import { Avatar, AvatarGroup } from "@nextui-org/react";
+
 
 
 
@@ -17,39 +18,16 @@ export default function TaskDetails({taskDetails}) {
 console.log(taskDetails)
 
 
-  const handleSaveTask = (updatedTask) => {
-    setTask(updatedTask)
-    // Here you would typically make an API call to update the task on the server
-    console.log("Task updated:", updatedTask)
-  }
-
-  const handleCompleteTask = () => {
-    setTask({ ...task, status: "Completed" })
-    // Here you would typically make an API call to update the task status on the server
-    console.log("Task marked as completed:", task.id)
-    setIsCompleteDialogOpen(false)
-  }
 
     return (
       
-      // <div className="container w-full mx-auto py-10">
       <div>
 
         {taskDetails ? (
+          <div>
           <Card className="w-full">
         <CardHeader className="flex justify-between">
               <div className="">
-            {/* <Avatar isBordered radius="full" size="md" src="https://nextui.org/avatars/avatar-1.png" />
-            <div className="flex flex-col gap-1 items-start justify-center">
-              <h4 className="text-small font-semibold leading-none text-default-600">Zoey Lang</h4>
-              <h5 className="text-small tracking-tight text-default-400">@zoeylang</h5>
-            </div> */}
-                
-
-                {/* 
-                <span>Due: {taskDetails?.createdAt ? formatDate(taskDetails.createdAt) : 'No date available'}</span>
-  
-                <span>Priority: {taskDetails?.priority}</span> */}
   
                 <div>
                   <div>
@@ -110,8 +88,40 @@ console.log(taskDetails)
 
                   
         </CardFooter>
-        </Card >
+          </Card >
+          
+          <div className="mt-5">
+          <span >Activity History</span>
+            <div className="overflow-x-auto">
+    <table className="table">
+      {/* head */}
+      <thead>
+        <tr>
+          <th>Activity</th>
+          <th>By</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+       
+                  
+                  {taskDetails?.activityLogs.map((item) => {
+                    return <tr className="bg-base-200">
+                      <td>{item.action}</td>
+                      <td>{item.userEmail}</td>
+                      <td>{formatDate(item.timestamp)}</td>
+                     </tr>
+                  })}
+        
+      </tbody>
+    </table>
+  </div>
+            </div>
+            </div>
+          
         )
+          
+      
       
       :
 
@@ -129,33 +139,7 @@ console.log(taskDetails)
       
                   }
 
-        <div className="mt-5">
-        <span >Activity History</span>
-          <div className="overflow-x-auto">
-  <table className="table">
-    {/* head */}
-    <thead>
-      <tr>
-        <th>Activity</th>
-        <th>By</th>
-        <th>Date</th>
-      </tr>
-    </thead>
-    <tbody>
-     
-                
-                {taskDetails?.activityLogs.map((item) => {
-                  return <tr className="bg-base-200">
-                    <td>{item.action}</td>
-                    <td>{item.userEmail}</td>
-                    <td>{formatDate(item.timestamp)}</td>
-                   </tr>
-                })}
       
-    </tbody>
-  </table>
-</div>
-        </div>
         
     </div>
   )
