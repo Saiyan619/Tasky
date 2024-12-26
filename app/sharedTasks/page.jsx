@@ -6,7 +6,7 @@ import { useUser } from '@clerk/nextjs'
 import SharedTaskCard from './SharedTaskCard'
 
 
-const page = () => {
+const Page = () => {
   
   const { user } = useUser();
   const [sharedTasks, setSharedTasks] = useState([])
@@ -58,4 +58,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
