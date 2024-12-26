@@ -105,8 +105,8 @@ console.log(taskDetails)
       <tbody>
        
                   
-                  {taskDetails?.activityLogs.map((item) => {
-                    return <tr className="bg-base-200">
+                  {taskDetails?.activityLogs.map((item, index) => {
+                    return <tr key={index} className="bg-base-200">
                       <td>{item.action}</td>
                       <td>{item.userEmail}</td>
                       <td>{formatDate(item.timestamp)}</td>
