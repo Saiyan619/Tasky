@@ -52,9 +52,9 @@ function TaskCard({ key, title, description, status, dueDate, priority, TaskDbId
       <span className="font-semibold text-default-400 text-small">Assigned to:</span>
       <div>
                   <AvatarGroup isBordered max={3}>
-                    {collaborators?.map((item) => {
+                    {collaborators?.map((item, index) => {
                       return (
-                        <Avatar size="sm" name={item?.email?.slice(0, 2)} />
+                        <Avatar key={index} size="sm" name={item?.email?.slice(0, 2)} />
                       )
                     })}
       </AvatarGroup>
