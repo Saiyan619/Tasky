@@ -3,9 +3,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import GlobalApi from '../_utils/GlobalApi'
 import { useUser } from '@clerk/nextjs'
-import { Button } from '@nextui-org/react'
 import { useRouter } from "next/navigation"
-import Link from "next/link"
 import SharedTaskCard from './SharedTaskCard'
 
 
@@ -15,10 +13,7 @@ const page = () => {
   const [sharedTasks, setSharedTasks] = useState([])
 
   const router = useRouter();
-  const handleSeeDetails = () => {
-    router.push(`/task/${TaskDbId}`)
-  }
-
+  
   useEffect(() => {
     getSharedTask()
   }, [user])
