@@ -3,7 +3,6 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import GlobalApi from '../_utils/GlobalApi'
 import { useUser } from '@clerk/nextjs'
-import { useRouter } from "next/navigation"
 import SharedTaskCard from './SharedTaskCard'
 
 
@@ -12,7 +11,6 @@ const page = () => {
   const { user } = useUser();
   const [sharedTasks, setSharedTasks] = useState([])
 
-  const router = useRouter();
   
   useEffect(() => {
     getSharedTask()
@@ -40,14 +38,6 @@ const page = () => {
       <h1 className='text-2xl font-bold'>Shared Tasks</h1>
         <p className='text-sm'>You were added to colloborate in these Tasks</p>
         </div>
-{/* 
-      {sharedTasks.map((item) => {
-        return <div>
-          {item.title}
-          <Link href={`/myTasks/${item._id}`}> <Button onC3lick={handleSeeDetails} className='text-xs mt-5'>See More</Button></Link>
-          {item._id}
-        </div>
-      })} */}
 
 {user && sharedTasks.map((item) => {
           return <SharedTaskCard
