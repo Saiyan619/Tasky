@@ -70,9 +70,9 @@ console.log(taskDetails)
                     <div>
                       Me
                   <AvatarGroup isBordered max={3}>
-                    {taskDetails?.collaborators.map((item) => {
+                    {taskDetails?.collaborators.map((item, index) => {
                       return (
-                        <Avatar size="sm" name={item.email.slice(0, 2)} />
+                        <Avatar key={index} size="sm" name={item.email.slice(0, 2)} />
                       )
                     })}
       </AvatarGroup>

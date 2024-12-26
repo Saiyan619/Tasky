@@ -21,7 +21,7 @@ import DeleteTask from './DeleteTask';
 
  
 
-const page = ({ params }) => {
+const Page = ({ params }) => {
   
      const notify = () => toast.success('📝Task Created', {
         position: "top-right",
@@ -307,4 +307,4 @@ setUpdatedDesc={setUpdatedDesc}
   )
 }
 
-export default page
+export default Page

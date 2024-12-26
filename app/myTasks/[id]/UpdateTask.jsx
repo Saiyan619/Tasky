@@ -248,7 +248,7 @@ export default function UpdateTask({
                 <div className="mt-4 m-h-32 overflow-y-scroll border border-gray-300 rounded-md p-2">
                     {filteredUser?.length > 0 ? (
                           filteredUser?.map((user, index) => (
-                          <div>
+                          <div key={index}>
                             {/* <p key={index} className="py-1">
                                  {user.email}
                             </p> */}

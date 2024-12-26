@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import GlobalApi from "@/app/_utils/GlobalApi";
 // import { Button } from "@/components/ui/button";
 
-const page = () => {
+const Page = () => {
     const { user } = useUser();
   console.log(user);
   console.log(user?.fullName);
@@ -62,7 +62,7 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
 
 
 
