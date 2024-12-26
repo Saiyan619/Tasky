@@ -1,7 +1,7 @@
 const { default: axios } = require("axios");
 
 const axiosClient = axios.create({
-    baseURL: 'http://localhost:8000'
+    baseURL: process.env.NEXT_PUBLIC_API_URL
 });
 
 const createUser = (data) => axiosClient.post('/user', data);
