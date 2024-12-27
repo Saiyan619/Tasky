@@ -17,20 +17,22 @@ const chartData = [
     { month: "March", desktop: 237, mobile: 120 },
     { month: "April", desktop: 237, mobile: 120 },
     { month: "May", desktop: 237, mobile: 120 },
-    { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-    { month: "March", desktop: 237, mobile: 120 },
-    { month: "April", desktop: 237, mobile: 120 },
-    { month: "May", desktop: 237, mobile: 120 },
+    { month: "June", desktop: 186, mobile: 80 },
+  { month: "July", desktop: 305, mobile: 200 },
+    { month: "August", desktop: 237, mobile: 120 },
+    { month: "September", desktop: 237, mobile: 120 },
+    { month: "October", desktop: 237, mobile: 120 },
+    { month: "November", desktop: 237, mobile: 120 },
+    { month: "December", desktop: 237, mobile: 120 },
 ]
 
 const chartConfig = {
   desktop: {
-    label: "Desktop",
+    label: "Completd",
     color: "#2563eb",
   },
   mobile: {
-    label: "Mobile",
+    label: "Ongoing",
     color: "#60a5fa",
   },
 } 

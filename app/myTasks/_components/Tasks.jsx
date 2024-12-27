@@ -93,8 +93,8 @@ const Tasks = () => {
  return (
     <div className=''>
     <div className=''>
-      <p className='text-center'>My Tasks</p>
-     <div className='flex items-center gap-5 justify-center'>
+      <p className='text-center mt-3 font-bold text-xl'>My Tasks</p>
+     <div className='flex items-center gap-5 justify-center mt-2'>
         <CreateTaskDialog
           userList={userList}
           getTaskById={getTaskById} />
