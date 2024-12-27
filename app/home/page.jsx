@@ -1,60 +1,78 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Card from './_components/Card'
 import Chart from './_components/Chart'
 import Activity from './_components/Activity'
 import { UserButton, useUser } from "@clerk/nextjs";
-import { useState, useEffect } from "react";
-// import Image from "next/image";
 import GlobalApi from "@/app/_utils/GlobalApi";
-// import { Button } from "@/components/ui/button";
 
 const Page = () => {
-    const { user } = useUser();
-  console.log(user);
-  console.log(user?.fullName);
-  console.log(user?.createdAt);
-  console.log(user?.primaryEmailAddress);
-  console.log(user?.primaryEmailAddressId);
+  const { user } = useUser();
+  const [stats, setStats] = useState({
+    allTask: 0,
+    pending: 0,
+    ongoing: 0,
+    completed:0
+  })
+  
+  useEffect(() => {
+    getTaskStatistics()
+  }, [user?.id])
+  
+  console.log(stats)
 
-//   const [userList, setUserList] = useState([])
+    const getTaskStatistics = async () => {
+      try {
+        if (user?.id)  {
+        const resp = await GlobalApi.getStatistics(user.id);
+          console.log('Statistics:', resp.data);
+          setStats(resp.data)
+          // return resp.data;
+        }
+      } catch (error) {
+        console.error('Error fetching statistics:', error);
+      }
+  }
 
-// // "_id": "6729b279b668b26e0c4538d5",
-// //     "clerkId": "6901",
-// //     "__v": 0,
-// //     "createdAt": "2024-11-05T05:51:53.547Z",
-// //     "email": "ola@example.com",
-// //     "name": "olaniyi arokoyu",
-  // //     "role": "user"
+
   
 
- const createUsers = async () => {
-  try {
-    const data = {
-      clerkId: user?.id,
-      name: user?.fullName,
-      email: user?.primaryEmailAddress?.emailAddress,
-      createdAt: user?.createdAt
-    }
+
+  
+
+//  const createUsers = async () => {
+//   try {
+//     const data = {
+//       clerkId: user?.id,
+//       name: user?.fullName,
+//       email: user?.primaryEmailAddress?.emailAddress,
+//       createdAt: user?.createdAt
+//     }
       
-        GlobalApi.createUser(data).then(resp => {
-        console.log(resp)
-         if (resp) {
-          console.log('user created')
-        }
-      })
+//         GlobalApi.createUser(data).then(resp => {
+//         console.log(resp)
+//          if (resp) {
+//           console.log('user created')
+//         }
+//       })
     
-  } catch (error) {
-    console.log(error)
-  }
-   }
+//   } catch (error) {
+//     console.log(error)
+//   }
+  //    }
+  
+
+
   return (
     <div className=''>
       {/* this the home page */}
-      <p>Welcome, {user?.fullName}</p>
+      <p className='text-center'>Welcome😁, {user?.fullName}</p>
 
-          <div className='flex items-center flex-col justify-center'>
-          <Card />
+
+      <div className='flex items-center flex-col justify-center'>
+        <Card
+          stats={stats}
+        />
               <Chart />
               <Activity />
               </div>

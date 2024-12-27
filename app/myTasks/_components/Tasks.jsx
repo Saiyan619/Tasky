@@ -11,7 +11,6 @@ import FilterTaskCard from './FilterTaskCard'
 
 
 
-
 const Tasks = () => {
   const { user } = useUser();
   const [allTasks, setAllTasks] = useState([])

@@ -13,6 +13,7 @@ const getTaskDetails = (id) => axiosClient.get('/task/taskInfo/' + id)
 const updateTask = (id, data) => axiosClient.put(`/task/editTask/${id}`, data);
 const deleteTask = (id, userId) => axiosClient.delete(`/task/deleteTask/${id}?userId=${userId}`);
 const getSharedTask = (id) => axiosClient.get('/task/collaborate/shared-tasks/' + id);
+const getStatistics = (userId) => axiosClient.get(`task/statistics/${userId}`);
 const getFilterTasks = (filters) => {
     const params = new URLSearchParams(filters).toString();
     return axiosClient.get(`/task/filterTasks?${params}`);
@@ -35,6 +36,7 @@ export default {
     getSharedTask,
     getFilterTasks,
     addActivityLogs,
-    getGlobalActivity
+    getGlobalActivity,
+    getStatistics
 }
 
