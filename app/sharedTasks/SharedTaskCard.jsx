@@ -15,7 +15,7 @@ export default function SharedTaskCard({title, description, status, dueDate, pri
 
 
   return (
-    <Card className="w-[300px] mt-5">
+    <Card className="w-[300px] mt-5 z-0">
       <CardHeader className="justify-between">
         {/* <div className="flex gap-5"> */}
           {/* <Avatar isBordered radius="full" size="md" src="https://nextui.org/avatars/avatar-1.png" /> */}

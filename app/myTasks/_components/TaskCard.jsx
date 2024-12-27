@@ -18,7 +18,7 @@ function TaskCard({ key, title, description, status, dueDate, priority, TaskDbId
 
   console.log(collaborators)
   return (
-    <Card key={key} className="w-[300px] mt-5">
+    <Card key={key} className="w-[300px] mt-5 z-0 ">
     <CardHeader className="justify-between">
         <div className="flex flex-col gap-1 items-start justify-center">
                 <h4 className="text-xl font-semibold leading-none text-default-600">{title}</h4>

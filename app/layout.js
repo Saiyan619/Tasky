@@ -53,7 +53,7 @@ export default function RootLayout({ children }) {
             
             <main>
             <Nav />
-            <div className="drawer lg:drawer-open">
+            <div className="drawer lg:drawer-open relative z-50">
               <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       {/* label former postion */}
   <div className="drawer-content">
@@ -63,8 +63,8 @@ export default function RootLayout({ children }) {
                   </NextUIProvider>
   </div>
   <div className="drawer-side">
-                <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
-                <ul className="menu lg:bg-white bg-secondary text-base-content min-h-full w-52 border p-4">
+                <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay z-10 relative"></label>
+                <ul className="menu lg:bg-white bg-secondary text-base-content min-h-full w-52 border p-4 z-[99999]">
                   {items.map((list, index) => (
     <li key={index} >
     <a className='flex items-center mt-5 gap-2' href={list.url}>
