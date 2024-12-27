@@ -228,7 +228,7 @@ const Page = ({ params }) => {
 
       switch (status) {
         case 403:
-          alert("You do not have permission to update this task.");
+          alert("You do not have permission to delete this task.");
           break;
         case 404:
           alert("Task not found.");

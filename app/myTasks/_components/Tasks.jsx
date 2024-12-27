@@ -116,7 +116,7 @@ const Tasks = () => {
      {filterTasks.length === 0 
        ?
        (useSkeleten ?
-         <div className='flex items-center justify-center gap-3 mt-3'>
+         <div className='flex items-center justify-center gap-3 mt-3 flex-wrap'>
          <div className="flex w-52 flex-col gap-4">
         <div className="flex items-center gap-4">
           <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
