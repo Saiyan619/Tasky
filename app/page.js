@@ -26,7 +26,7 @@ export default function Home() {
    user && createUsers()
     console.log('this is home')
     
-  }, [])
+  }, [user])
 
   const createUsers = async () => {
     try {
