@@ -118,7 +118,7 @@ const Tasks = () => {
 
          (<div>
            <span className='flex items-center justify-center text-center text-sm text-gray-600 font-bold mt-20 p-5'>
-           Nothing to see here! Your task list📝 is empty. <br/> Click 'Create New Task' to start organizing your day.
+           Nothing to see here! Your task list📝 is empty. <br/> Click &apos;Create New Task&apos; to start organizing your day.
            </span>
          </div>)
          
