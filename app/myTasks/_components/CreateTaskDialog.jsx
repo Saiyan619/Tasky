@@ -212,7 +212,7 @@ const searchUsers = (users, query) => {
                   labelPlacement="outside"
                   onChange={handleTitle}
                 />
-                title:{title}
+                {/* title:{title} */}
   
                 
                 <div className='flex gap-2'>
@@ -242,7 +242,7 @@ const searchUsers = (users, query) => {
            Failed
           </SelectItem>
       </Select>
-      <p className="text-small text-default-500">Selected: {status}</p>
+      {/* // <p className="text-small text-default-500">Selected: {status}</p> */}
     </div>
 
                 
@@ -268,7 +268,7 @@ const searchUsers = (users, query) => {
             
           </SelectItem>
       </Select>
-      <p className="text-small text-default-500">Selected: {priority}</p>
+      {/* <p className="text-small text-default-500">Selected: {priority}</p> */}
                   </div>
                   
                   </div>
@@ -298,10 +298,7 @@ const searchUsers = (users, query) => {
                   onChange={(e) => handleSearch(e.target.value)}
                   />
 
-                   {/* <button
-                    onClick={handleSearch}
-                    className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none"
-                >search</button> */}
+           
                   
                     {/* Display Filtered Users */}
             <div className="mt-4 m-h-32 overflow-y-scroll border border-gray-300 rounded-md p-2">
@@ -418,7 +415,7 @@ const searchUsers = (users, query) => {
         value={desc}
         onValueChange={setDesc}
       />
-      <p className="text-default-500 text-small">Textarea value: {desc}</p>
+      {/* <p className="text-default-500 text-small">Textarea value: {desc}</p> */}
     </div>
               </ModalBody>
               <ModalFooter>
