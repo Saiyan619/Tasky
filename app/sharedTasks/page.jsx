@@ -46,7 +46,10 @@ const Page = () => {
 
       {sharedTasks.length === 0 ?
          
-        <div>nothing to show here</div>
+        <div><span className='flex items-center justify-center text-center text-sm text-gray-600 font-bold mt-20 p-5'>
+          No Shared Task Found
+        </span>
+        </div>
         :
         (useSkeleten ?
           <div className='flex items-center justify-center gap-3 mt-3 flex-wrap'>
