@@ -46,7 +46,7 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className='bg-gray-100 w-full h-screen'>
+        <body className='bg-gray-100 w-full min-h-screen h-auto'>
           {/* <SignedOut>
             <SignInButton />
           </SignedOut> */}
