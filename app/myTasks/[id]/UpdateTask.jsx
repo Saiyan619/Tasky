@@ -142,7 +142,7 @@ export default function UpdateTask({
           {(onClose) => (
             <>
               
-              <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">Update Task</ModalHeader>
                           <ModalBody>
                               
                           <Input
