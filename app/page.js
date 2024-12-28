@@ -8,16 +8,8 @@ import Link from "next/link";
 
 export default function Home() {
   const { user } = useUser();
-  // console.log(user);
   const [userList, setUserList] = useState([])
 
-// "_id": "6729b279b668b26e0c4538d5",
-//     "clerkId": "6901",
-//     "__v": 0,
-//     "createdAt": "2024-11-05T05:51:53.547Z",
-//     "email": "ola@example.com",
-//     "name": "olaniyi arokoyu",
-//     "role": "user"
 
 
 

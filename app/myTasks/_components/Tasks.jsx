@@ -25,6 +25,7 @@ const Tasks = () => {
 
 
   console.log(filterTasks)
+  console.log(allTasks)
 
   function logger() {
     console.log(statusFilter)
@@ -111,86 +112,102 @@ const Tasks = () => {
        />
      </div>
 
+       {allTasks.length === 0 ?
+         
+         
 
-     {filterTasks.length === 0 
-       ?
-       (useSkeleten ?
-         <div className='flex items-center justify-center gap-3 mt-3 flex-wrap'>
-         <div className="flex w-52 flex-col gap-4">
-        <div className="flex items-center gap-4">
-          <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
-          <div className="flex flex-col gap-4">
-            <div className="skeleton h-4 w-20"></div>
-            <div className="skeleton h-4 w-28"></div>
-          </div>
-        </div>
-        <div className="skeleton h-32 w-full"></div>
-           </div>
-
-            <div className="flex w-52 flex-col gap-4">
-        <div className="flex items-center gap-4">
-          <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
-          <div className="flex flex-col gap-4">
-            <div className="skeleton h-4 w-20"></div>
-            <div className="skeleton h-4 w-28"></div>
-          </div>
-        </div>
-        <div className="skeleton h-32 w-full"></div>
-           </div>
-
-            <div className="flex w-52 flex-col gap-4">
-        <div className="flex items-center gap-4">
-          <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
-          <div className="flex flex-col gap-4">
-            <div className="skeleton h-4 w-20"></div>
-            <div className="skeleton h-4 w-28"></div>
-          </div>
-        </div>
-        <div className="skeleton h-32 w-full"></div>
-           </div>
-
-           
-           </div>
+         (<div>
+           <span className='flex items-center justify-center text-center text-sm text-gray-600 font-bold mt-20 p-5'>
+           Nothing to see here! Your task list📝 is empty. <br/> Click 'Create New Task' to start organizing your day.
+           </span>
+         </div>)
+         
          :
-         (<div className='flex items-center justify-center flex-wrap gap-3 mt-3'>
-        { allTasks.map((item) => {
-          return <TaskCard
-            key={item._id}
-            TaskDbId={item._id}
-            title={item.title}
-            description={item.description}
-            status={item.status}
-            dueDate={item.dueDate}
-            priority={item.priority}
-            collaborators={item.collaborators}
-            
-          />
+         
+           (filterTasks.length === 0
+             ?
+             (useSkeleten ?
+               <div className='flex items-center justify-center gap-3 mt-3 flex-wrap'>
+                 <div className="flex w-52 flex-col gap-4">
+                   <div className="flex items-center gap-4">
+                     <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
+                     <div className="flex flex-col gap-4">
+                       <div className="skeleton h-4 w-20"></div>
+                       <div className="skeleton h-4 w-28"></div>
+                     </div>
+                   </div>
+                   <div className="skeleton h-32 w-full"></div>
+                 </div>
    
-        })}
+                 <div className="flex w-52 flex-col gap-4">
+                   <div className="flex items-center gap-4">
+                     <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
+                     <div className="flex flex-col gap-4">
+                       <div className="skeleton h-4 w-20"></div>
+                       <div className="skeleton h-4 w-28"></div>
+                     </div>
+                   </div>
+                   <div className="skeleton h-32 w-full"></div>
+                 </div>
    
-  
+                 <div className="flex w-52 flex-col gap-4">
+                   <div className="flex items-center gap-4">
+                     <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
+                     <div className="flex flex-col gap-4">
+                       <div className="skeleton h-4 w-20"></div>
+                       <div className="skeleton h-4 w-28"></div>
+                     </div>
+                   </div>
+                   <div className="skeleton h-32 w-full"></div>
+                 </div>
    
-        </div>)
-        )
-    
+              
+               </div>
+               :
+               (<div className='flex items-center justify-center flex-wrap gap-3 mt-3'>
+                 {allTasks.map((item) => {
+                   return <TaskCard
+                     key={item._id}
+                     TaskDbId={item._id}
+                     title={item.title}
+                     description={item.description}
+                     status={item.status}
+                     dueDate={item.dueDate}
+                     priority={item.priority}
+                     collaborators={item.collaborators}
+               
+                   />
+      
+                 })}
+      
+     
+      
+               </div>)
+             )
+       
+   
+             :
+   
+           (<div className='flex items-center justify-center flex-wrap gap-3 mt-3'>
+             {filterTasks.map((item) => {
+               return <FilterTaskCard
+                 key={item._id}
+                 TaskDbId={item._id}
+                 title={item.title}
+                 description={item.description}
+                 status={item.status}
+                 dueDate={item.dueDate}
+                 priority={item.priority}
+                 collaborators={item.collaborators}
+               />
+             })}
+             </div>)
+           )
 
-     :
-
-   ( <div className='flex items-center justify-center flex-wrap gap-3 mt-3'> {filterTasks.map((item) => {
-      return <FilterTaskCard
-        key={item._id}
-        TaskDbId={item._id}
-        title={item.title}
-        description={item.description}
-        status={item.status}
-        dueDate={item.dueDate}
-        priority={item.priority}
-        collaborators={item.collaborators}
-      />
-   })}
-      </div>   )
-     }
-
+       
+   
+       }
+     
    
    
     </div>

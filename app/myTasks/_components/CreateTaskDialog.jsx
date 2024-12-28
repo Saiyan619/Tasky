@@ -19,7 +19,6 @@ const CreateTaskDialog = ({ getTaskById, userList }) => {
 
   const { user } = useUser();
 
-    const [toastVisible, setToastVisible] = useState(false);
   const [loading, setLoading] = useState(false)
     const [title, setTitle] = useState('')
   const [priority, setPriority] = useState('medium')
@@ -75,12 +74,17 @@ const updateRole = (clerkId, role) => {
       collaborators: collaborators
     }
 
+    setLoading(true)
     try {
       GlobalApi.createTask(data).then(resp => {
         console.log(resp)
         console.log(resp.data)
         console.log(resp.data)
         console.log("task added")
+
+       
+        notify()
+        getTaskById()
 
         // Add activity log for "Created"
         if (resp.data) {
@@ -93,11 +97,9 @@ const updateRole = (clerkId, role) => {
           })
         }
 
-        
-        // Show toast message
-        setLoading(true)
-        notify()
-        getTaskById()
+
+       
+                
 
         // Clear input fields
         setTitle("");
@@ -105,10 +107,13 @@ const updateRole = (clerkId, role) => {
         setStatus("");
         setPriority("");
 
+        setLoading(false)
+
       })
 
     } catch (error) {
       console.log(error)
+      setLoading(false)
       notifyError()
     }
 
@@ -424,7 +429,8 @@ const searchUsers = (users, query) => {
                 </Button>
                 {loading ? ( <Button isLoading isDisabled onClick={createATask} color="primary">
                   Create
-                </Button>) :
+                </Button>)
+                  :
                     <Button onClick={createATask} color="primary">
                   Create
                 </Button>
