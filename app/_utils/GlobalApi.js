@@ -4,7 +4,7 @@ const axiosClient = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL
 });
 
-const createUser = (data) => axiosClient.post('/user', data);
+const createUser = (data) => axiosClient.post('/user/createUser', data);
 const getUsers = () => axiosClient.get('/user')
 const getUserByClerkId = (clerkId) => axiosClient.get('/user/' + clerkId);
 const createTask = (data) => axiosClient.post('/task', data);
