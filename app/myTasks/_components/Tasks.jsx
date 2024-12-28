@@ -113,8 +113,6 @@ const Tasks = () => {
      </div>
 
        {allTasks.length === 0 ?
-         
-         
 
          (<div>
            <span className='flex items-center justify-center text-center text-sm text-gray-600 font-bold mt-20 p-5'>
