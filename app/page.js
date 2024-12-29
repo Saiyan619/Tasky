@@ -8,9 +8,8 @@ import Link from "next/link";
 
 export default function Home() {
   const { user } = useUser();
-  const [userList, setUserList] = useState([])
-
-
+  // const [userList, setUserList] = useState([])
+const [allowClick, setAllowClick] = useState(false)
 
 
   useEffect(() => {
@@ -21,34 +20,38 @@ export default function Home() {
   }, [user])
 
   const createUsers = async () => {
+    setAllowClick(true);
     try {
-      const data = {
-          clerkId: user?.id,
-          name: user?.fullName,
-          email: user?.primaryEmailAddress?.emailAddress,
-          createdAt: user?.createdAt
-      }
-      GlobalApi.createUser(data).then(resp => {
-        console.log(resp)
-          console.log(resp)
-          console.log('user created')
-      })
+        const data = {
+            clerkId: user?.id,
+            name: user?.fullName,
+            email: user?.primaryEmailAddress?.emailAddress,
+            createdAt: user?.createdAt
+        };
+        
+        const resp = await GlobalApi.createUser(data);
+        console.log(resp);
+        console.log('user created');
     } catch (error) {
-      console.log('user created')
+        console.log(error);
+    } finally {
+        setAllowClick(false);
     }
-  }
+};
   
   
-  const getAllUsers = async () => {
-    try {
-      GlobalApi.getUsers().then(resp => {
-        setUserList(resp.data)
-        console.log(resp.data)
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // const getAllUsers = async () => {
+  //   try {
+  //     GlobalApi.getUsers().then(resp => {
+  //       setUserList(resp.data)
+  //       console.log(resp.data)
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+
+
   return (
     <div className="hero bg-base-200 min-h-screen">
     <div className="hero-content text-center">
@@ -59,9 +62,35 @@ export default function Home() {
          Make collaboration and organization of Task easier
         </p>
 
-          <Link href="/home">
-            <button className="btn btn-primary">Get Started📝</button>
-          </Link>
+          
+
+
+          {!allowClick ? 
+              ( <button className="btn btn-primary">
+                <Link href="/home">
+                Get Started📝
+                    </Link>
+                </button>
+            )
+              :
+            (   <button  disabled="disabled" className="btn">
+              <span className="loading loading-spinner"></span>
+              <Link href="/home">
+              please wait...
+                          </Link>
+            </button>)
+            
+          
+      }    
+
+          {!allowClick ? 
+            (<div></div>)
+            :
+          (  <div>
+            <span className="text-sm font-bold text-gray-600">Please wait, saving user profile....</span>
+          </div>)
+}
+         
        
       </div>
     </div>
