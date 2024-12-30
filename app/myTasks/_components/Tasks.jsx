@@ -9,6 +9,7 @@ import FilterTaskForm from './FilterTaskForm'
 import FilterTaskCard from './FilterTaskCard'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { LucideScreenShare, LucideShare, Share, Share2Icon, ShareIcon, Sparkle, SparkleIcon,  } from 'lucide-react'
 
 
 
@@ -123,7 +124,8 @@ const Tasks = () => {
 
 
  return (
-    <div className=''>
+   <div className=''>
+
       <p className='text-center mt-3 font-bold text-xl'>My Tasks</p>
      <div className='flex items-center gap-5 justify-center mt-2'>
         <CreateTaskDialog

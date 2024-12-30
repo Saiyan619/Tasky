@@ -1,17 +1,10 @@
 import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton
+  ClerkProvider
 } from '@clerk/nextjs'
 import {NextUIProvider} from "@nextui-org/react";
 import './globals.css'
-import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
-import { AppSidebar } from '@/components/app-sidebar'
 import Nav from '@/app/_layout-components/Nav'
-import { NavigationMenu } from '@/components/ui/navigation-menu'
-import { Calendar, Home, Inbox, Search, Settings, Settings2, SettingsIcon } from "lucide-react"
+import { Calendar, Home, Inbox, Settings, LucideScreenShare, Share, Sparkles } from "lucide-react"
 
 
 // Menu items.
@@ -22,19 +15,19 @@ const items = [
     icon: Home,
   },
   {
-    title: "Shared-Tasks",
-    url: "/sharedTasks",
-    icon: Inbox,
-  },
-  {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-  {
     title: "My Tasks",
     url: "/myTasks",
     icon: Inbox,
+  },
+  {
+    title: "Shared Tasks",
+    url: "/sharedTasks",
+    icon: LucideScreenShare,
+  },
+  {
+    title: "AI Tasks",
+    url: "/sharedTasks",
+    icon: Sparkles,
   },
   {
     title: "Settings",
@@ -42,14 +35,14 @@ const items = [
     icon: Settings,
   },
 ]
+
+
+
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en">
         <body className='bg-gray-100 w-full min-h-screen h-auto'>
-          {/* <SignedOut>
-            <SignInButton />
-          </SignedOut> */}
             
             <main>
             <Nav />
