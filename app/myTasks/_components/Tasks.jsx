@@ -5,9 +5,11 @@ import TaskCard from './TaskCard'
 import CreateTaskDialog from './CreateTaskDialog'
 import GlobalApi from '@/app/_utils/GlobalApi'
 import { useUser } from '@clerk/nextjs'
-import {Button} from "@nextui-org/react";
 import FilterTaskForm from './FilterTaskForm'
 import FilterTaskCard from './FilterTaskCard'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 
@@ -22,6 +24,33 @@ const Tasks = () => {
   const [searchFilter, setSearchFilter] = useState('')
 
   const [useSkeleten, setUseSkeleten] = useState(false)
+
+
+  
+      const notifyFilteredTask = () => toast.success('🦄 Task Found', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        // transition: Bounce,
+      });
+    
+    const notifyError = () => toast.error("Error, Something's wrong", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        // transition: Bounce,
+        });
+  
 
 
   console.log(filterTasks)
@@ -82,17 +111,18 @@ const Tasks = () => {
       }).then(resp => {
         console.log(resp.data)
         setFilterTasks(resp.data)
+        notifyFilteredTask()
         })
       }
      
     } catch(error) {
       console.error(error)
+      notifyError()
     }
   }
 
 
  return (
-    <div className=''>
     <div className=''>
       <p className='text-center mt-3 font-bold text-xl'>My Tasks</p>
      <div className='flex items-center gap-5 justify-center mt-2'>
@@ -208,7 +238,6 @@ const Tasks = () => {
      
    
    
-    </div>
     </div>
   )
 }

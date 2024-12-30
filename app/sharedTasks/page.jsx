@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react'
 import GlobalApi from '../_utils/GlobalApi'
 import { useUser } from '@clerk/nextjs'
 import SharedTaskCard from './SharedTaskCard'
-
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 const Page = () => {
   
@@ -39,6 +40,7 @@ const Page = () => {
   return (
     <div>
       <div className='text-center mt-3'> 
+        
       <h1 className='text-2xl font-bold'>Shared Tasks</h1>
         <p className='text-sm'>You were added to colloborate on these Tasks</p>
       </div>

@@ -9,7 +9,9 @@ import {
     useDisclosure,
   } from "@nextui-org/react";
 import { Input } from "@nextui-org/input";
-import {Select, SelectItem} from "@nextui-org/react";
+import { Select, SelectItem } from "@nextui-org/react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
   
@@ -43,6 +45,8 @@ logger
             {(onClose) => (
               <>
                 <ModalHeader className="flex flex-col gap-1">Find Task</ModalHeader>
+                                <ToastContainer />
+                
                 <ModalBody>
                 <div className="w-full flex flex-col gap-2">
       <Input label="Search by Keyword" placeholder="Search By Keyword" value={searchFilter} onValueChange={setSearchFilter} />

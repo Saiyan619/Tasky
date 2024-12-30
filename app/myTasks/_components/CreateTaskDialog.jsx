@@ -166,7 +166,7 @@ const searchUsers = (users, query) => {
   console.log(filteredUser); // Logs matched users
   
 
-    const notify = () => toast.success('🦄 Task Created', {
+    const notify = () => toast.success('Task Created', {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
