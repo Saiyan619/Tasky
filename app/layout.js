@@ -26,7 +26,7 @@ const items = [
   },
   {
     title: "AI Tasks",
-    url: "/sharedTasks",
+    url: "/aiTasks",
     icon: Sparkles,
   },
   {

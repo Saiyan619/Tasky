@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Card from './_components/Card'
 import Chart from './_components/Chart'
 import Activity from './_components/Activity'
-import { UserButton, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import GlobalApi from "@/app/_utils/GlobalApi";
 
 const Page = () => {
@@ -34,33 +34,6 @@ const Page = () => {
       }
   }
 
-
-  
-
-
-  
-
-//  const createUsers = async () => {
-//   try {
-//     const data = {
-//       clerkId: user?.id,
-//       name: user?.fullName,
-//       email: user?.primaryEmailAddress?.emailAddress,
-//       createdAt: user?.createdAt
-//     }
-      
-//         GlobalApi.createUser(data).then(resp => {
-//         console.log(resp)
-//          if (resp) {
-//           console.log('user created')
-//         }
-//       })
-    
-//   } catch (error) {
-//     console.log(error)
-//   }
-  //    }
-  
 
 
   return (
