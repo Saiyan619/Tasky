@@ -15,7 +15,7 @@ const Page = () => {
                       <p className="pb-10 text-sm">
         Introducing <span className='font-bold'>AI Tasky</span>, Your personalized productivity companion! With just a few details about your interests and goals, our AI helps you create a tailored plan for you.
       </p>
-      <button className="btn btn-primary">Feature coming soon</button>
+      <button className="btn btn-primary">🚧Feature coming soon</button>
     </div>
   </div>
 </div>
