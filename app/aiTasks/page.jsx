@@ -8,7 +8,7 @@ const Page = () => {
     <div className="max-w-lg">
                       <h1 className="font-bold">Introducing</h1>
                       <span className='text-5xl font-bold'>AI Tasky</span>
-      <p className="pt-10 pb-5 text-sm">
+      <p className="pt-10 pb-3 text-sm">
         Feeling Jobless and don't know what to do with your Day or your life😊? 
       </p>
       
