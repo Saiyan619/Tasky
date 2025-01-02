@@ -25,7 +25,7 @@ console.log(taskDetails)
 
         {taskDetails ? (
           <div>
-          <Card className="w-full">
+          <Card className="w-full z-0">
         <CardHeader className="flex justify-between">
               <div className="">
   

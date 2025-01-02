@@ -27,16 +27,19 @@ const Page = () => {
         if (resp.data != []) {
           console.log(resp.data)
           setSharedTasks(resp.data)
-          setUseSkeleten(false)
+          // setUseSkeleten(false)
         } else {
           console.log("task not found!!!")
         }
-        
+        setUseSkeleten(false)
       })
     } catch (error) {
       console.log(error)
     }
   }
+
+
+  console.log(sharedTasks.length )
   return (
     <div>
       <div className='text-center mt-3'> 
@@ -48,10 +51,11 @@ const Page = () => {
 
       {sharedTasks.length === 0 ?
          
-        <div><span className='flex items-center justify-center text-center text-sm text-gray-600 font-bold mt-20 p-5'>
+        (<div>
+          <span className='flex items-center justify-center text-center text-sm text-gray-600 font-bold mt-20 p-5'>
           No Shared Task Found
         </span>
-        </div>
+        </div>)
         :
         (useSkeleten ?
           <div className='flex items-center justify-center gap-3 mt-3 flex-wrap'>
