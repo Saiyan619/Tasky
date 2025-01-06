@@ -78,6 +78,6 @@ module.exports = {
 		
 	],
 	daisyui: {
-		themes: ["light"], // Enable only the light theme
+		themes: ["light"], 
 	  },
 };

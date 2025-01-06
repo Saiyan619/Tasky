@@ -1,7 +1,6 @@
 "use client"
-import { UserButton, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import GlobalApi from "@/app/_utils/GlobalApi";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -32,11 +31,10 @@ const [allowClick, setAllowClick] = useState(false)
         const resp = await GlobalApi.createUser(data);
         console.log(resp);
         console.log('user created');
+        setAllowClick(false);
     } catch (error) {
         console.log(error);
-    } finally {
-        setAllowClick(false);
-    }
+    } 
 };
   
   
@@ -90,8 +88,7 @@ const [allowClick, setAllowClick] = useState(false)
             <span className="text-sm font-bold text-gray-600">Please wait, saving user profile....</span>
           </div>)
 }
-         
-       
+g       
       </div>
     </div>
   </div>
