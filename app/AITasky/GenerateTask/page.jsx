@@ -7,7 +7,7 @@ import GlobalApi from '@/app/_utils/GlobalApi';
 import AITaskCard from './_components/AITaskCard';
 
 const page = () => {
-  const [values, setValues] = React.useState(new Set([]));
+  const [values, setValues] = useState(new Set([]));
   const [tasks, setTasks] = useState([]);
   
   const getAiRes = async () => {
