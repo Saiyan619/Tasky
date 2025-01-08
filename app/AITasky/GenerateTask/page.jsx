@@ -6,7 +6,7 @@ import SelectInterestInput from './_components/SelectInterestInput';
 import GlobalApi from '@/app/_utils/GlobalApi';
 import AITaskCard from './_components/AITaskCard';
 
-const page = () => {
+const Page = () => {
   const [values, setValues] = useState(new Set([]));
   const [tasks, setTasks] = useState([]);
   
@@ -52,4 +52,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
