@@ -2,7 +2,6 @@
 import { useUser } from "@clerk/nextjs";
 import { useState, useEffect } from "react";
 import GlobalApi from "@/app/_utils/GlobalApi";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function Home() {

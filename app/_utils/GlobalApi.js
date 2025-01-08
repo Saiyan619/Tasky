@@ -22,7 +22,9 @@ const getFilterTasks = (filters) => {
 const addActivityLogs = (id, data) =>
     axiosClient.post(`/logs/activity-logs/${id}`, data);
 
-const getGlobalActivity = ()=> axiosClient.get('/global-logs')
+const getGlobalActivity = () => axiosClient.get('/global-logs');
+
+const getAiResponse = (data) => axiosClient.post('ai/generate', data);
 
 export default {
     createUser,
@@ -37,6 +39,6 @@ export default {
     getFilterTasks,
     addActivityLogs,
     getGlobalActivity,
-    getStatistics
+    getAiResponse
 }
 
