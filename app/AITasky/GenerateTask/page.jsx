@@ -15,30 +15,39 @@ const Page = () => {
   console.log(Array.from(values))
   
   const getAiRes = async () => {
-      console.log('please wait loading......')
-    if (user) {
-        console.log('loaded user first!!!...')
-    };
+    console.log('Please wait loading...');
+    
+    if (!user) {
+        console.log('No user found');
+        return;
+    }
 
     const data = {
-        userId : user?.id,
-        interests: Array.from(values) // Convert Set to Array before sending
-      };
-  
-      console.log('Sending data:', data);
-      try {
-        console.log('Selected interests:', data);
-        console.log('still loading......')
-       
-        const resp = await GlobalApi.getAiResponse(data);
-        console.log(resp.data.response)
-        // setAiResponseText(resp.data.response);
-        const parsedTasks = parseAIResponse(resp?.data.response);
+        userId: user.id,
+        interests: Array.from(values)
+    };
+
+    console.log('Sending data:', data);
+    
+    try {
+        // Option 1: Using async/await
+        const response = await GlobalApi.getAiResponse(data);
+        console.log('Response:', response);
+        console.log('Response data:', response.data.task.task);
+        //  setAiResponseText(response.data.task.task);
+        const parsedTasks = parseAIResponse(response.data.task.task);
               setTasks(parsedTasks);
-      } catch (error) {
-        console.error(error)
-      }
+        return response.data;
+
+    } catch (error) {
+        console.error('Error in getAiRes:', error);
+        if (error.response) {
+            console.error('Error response:', error.response.data);
+            console.error('Error status:', error.response.status);
+        }
+        throw error;
     }
+};
   
   const handleSelectionChange = (e) => {
     setValues(new Set(e.target.value.split(",")));
