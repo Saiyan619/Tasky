@@ -27,7 +27,6 @@ const Interests = [
 
 const SelectInterestInput = ({handleSelectionChange, values}) => {
      
-    
   return (
     <div>
         <div className="flex w-full max-w-xs flex-col gap-2">

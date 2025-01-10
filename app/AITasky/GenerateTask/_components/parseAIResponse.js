@@ -1,9 +1,9 @@
 
 export const parseAIResponse = (responseText) => {
     // Split the text into separate tasks
-    const tasks = responseText.split(/(?=\*\*\d+\.)/).filter(task => task.trim());
+    const tasks = responseText?.split(/(?=\*\*\d+\.)/).filter(task => task.trim());
     
-    return tasks.map(task => {
+    return tasks?.map(task => {
         // Extract and clean task number and title
         const titleMatch = task.match(/\*\*\d+\.\s*(.*?)\*\*/);
         const title = titleMatch 

@@ -5,15 +5,23 @@ import { parseAIResponse } from './_components/parseAIResponse';
 import SelectInterestInput from './_components/SelectInterestInput';
 import GlobalApi from '@/app/_utils/GlobalApi';
 import AITaskCard from './_components/AITaskCard';
+import { useUser } from '@clerk/nextjs';
 
 const Page = () => {
+  const {user} = useUser()
   const [values, setValues] = useState(new Set([]));
   const [tasks, setTasks] = useState([]);
+
+  console.log(Array.from(values))
   
   const getAiRes = async () => {
       console.log('please wait loading......')
-      
-      const data = {
+    if (user) {
+        console.log('loaded user first!!!...')
+    };
+
+    const data = {
+        userId : user?.id,
         interests: Array.from(values) // Convert Set to Array before sending
       };
   
@@ -25,7 +33,7 @@ const Page = () => {
         const resp = await GlobalApi.getAiResponse(data);
         console.log(resp.data.response)
         // setAiResponseText(resp.data.response);
-        const parsedTasks = parseAIResponse(resp.data.response);
+        const parsedTasks = parseAIResponse(resp?.data.response);
               setTasks(parsedTasks);
       } catch (error) {
         console.error(error)
@@ -39,7 +47,7 @@ const Page = () => {
     <div>
       <h1>Generate Your Task Here</h1>
 
-      <button onClick={getAiRes} className="btn btn-primary">🚧Generate tasks</button>
+      <button onClick={getAiRes} className="btn btn-primary">Generate tasks</button>
       
       <SelectInterestInput
         handleSelectionChange={handleSelectionChange}
