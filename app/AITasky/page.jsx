@@ -21,15 +21,9 @@ const Page = () => {
             <p className="pb-10 text-sm">
               Introducing <span className='font-bold'>AI Tasky</span>, Your personalized productivity companion! With just a few details about your interests and goals, our AI helps you create a tailored plan for you.
             </p>
-<<<<<<< HEAD
             {/* <Link href={`/AITasky/GenerateTask`}> */}
               <button className="btn btn-primary">🚧Feature Coming Soon</button>
             {/* </Link> */}
-=======
-              {/* <Link href={`/AITasky/GenerateTask`}>*/}
-              <button className="btn btn-primary">🚧Feature Coming Soon</button>
-          {/*</Link>*/}  
->>>>>>> 03896d00edb918d6106c4c6edb76a7a118aae4b2
             
           </div>
         </div>
