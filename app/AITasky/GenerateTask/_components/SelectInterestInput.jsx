@@ -31,7 +31,7 @@ const SelectInterestInput = ({handleSelectionChange, values}) => {
     <div>
         <div className="flex w-full max-w-xs flex-col gap-2">
       <Select
-        className="max-w-xs"
+        className="max-w-xs z-0"
         label="Choose what you like doing"
         placeholder="Select Interests"
         selectedKeys={values}
