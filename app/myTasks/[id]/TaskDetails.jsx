@@ -64,7 +64,7 @@ console.log(taskDetails)
                   <AvatarGroup isBordered max={3}>
                     {taskDetails?.collaborators.map((item, index) => {
                       return (
-                        <Tooltip content={item.email}>
+                        <Tooltip key={index} content={item.email}>
                           <Avatar key={index} size="sm" name={item.email.slice(0, 2)} />
                           </Tooltip>
                       )
