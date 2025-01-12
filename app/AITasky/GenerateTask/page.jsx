@@ -100,7 +100,7 @@ console.log(selected)
 
       <DurationSelect handleDurationSelectionChange={handleDurationSelectionChange} durationInput={durationInput} />
 
-      <button onClick={getAiRes} className="btn btn-primary"><Sparkles /> {textChange}</button>
+      <button onClick={getAiRes} className="btn btn-primary mt-5"><Sparkles /> {textChange}</button>
       
       {/* <SelectInterestInput
         handleSelectionChange={handleSelectionChange}

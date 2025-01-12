@@ -24,7 +24,7 @@ const Page = () => {
     const getTaskStatistics = async () => {
       try {
         if (user?.id)  {
-        const resp = await GlobalApi.getStatistics(user.id);
+        const resp = await GlobalApi.getStatistics(user?.id);
           console.log('Statistics:', resp.data);
           setStats(resp.data)
           // return resp.data;

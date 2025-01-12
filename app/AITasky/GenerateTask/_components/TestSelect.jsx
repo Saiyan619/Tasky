@@ -37,7 +37,7 @@ const TestSelect = ({toggleSelect, selected}) => {
   
     
   return (
-    <div>
+    <div className='p-5'>
           <div>
                 {data.map((item, index) => (
                 <button

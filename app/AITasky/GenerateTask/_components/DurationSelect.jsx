@@ -14,7 +14,7 @@ const DurationSelect = ({handleDurationSelectionChange, durationInput}) => {
   return (
     <div>
         <Select
-        className="max-w-xs z-0"
+        className="max-w-xs z-0 mt-5"
         label="Duration"
         placeholder="Select Duration"
         selectedKeys={[durationInput]}
@@ -25,7 +25,6 @@ const DurationSelect = ({handleDurationSelectionChange, durationInput}) => {
           <SelectItem key={duration.key}>{duration.label}</SelectItem>
         ))}
       </Select>
-      <p className="text-small text-default-500">Selected: {durationInput}</p>
     </div>
   )
 }

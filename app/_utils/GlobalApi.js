@@ -39,6 +39,7 @@ export default {
     getFilterTasks,
     addActivityLogs,
     getGlobalActivity,
-    getAiResponse
+    getAiResponse,
+    getStatistics
 }
 
