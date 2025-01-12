@@ -21,7 +21,7 @@ const Page = () => {
               Introducing <span className='font-bold'>AI Tasky</span>, Your personalized productivity companion! With just a few details about your interests and goals, our AI helps you create a tailored plan for you.
             </p>
             <Link href={`/AITasky/GenerateTask`}>
-              <button className="btn btn-primary">🚧Feature Coming Soon</button>
+              <button className="btn btn-primary">Get Started</button>
             </Link>
             
           </div>
