@@ -87,7 +87,7 @@ const [allowClick, setAllowClick] = useState(false)
             <span className="text-sm font-bold text-gray-600">Please wait, saving user profile, might take a minute....</span>
           </div>)
 }
-g       
+  
       </div>
     </div>
   </div>

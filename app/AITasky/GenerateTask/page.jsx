@@ -2,7 +2,6 @@
 import React from 'react'
 import { useState } from 'react';
 import { parseAIResponse } from './_components/parseAIResponse';
-import SelectInterestInput from './_components/SelectInterestInput';
 import GlobalApi from '@/app/_utils/GlobalApi';
 import AITaskCard from './_components/AITaskCard';
 import { useUser } from '@clerk/nextjs';
@@ -13,12 +12,11 @@ import ModalError from './_components/ModalError';
 
 const Page = () => {
   const {user} = useUser()
-  // const [values, setValues] = useState(new Set([]));
   const [tasks, setTasks] = useState([]);
   const [durationInput, setDurationInput] = useState("");
   const [selected, setSelected] = useState([])
   const [textChange, setTextChange] = useState('Generate')
-  const [showErrModal, setShowErrModal] = useState(false)
+  const [showSkeleton, setShowSkeleton] = useState(false)
 
   const openModal = () => {
     document.getElementById('my_modal_1').showModal();
@@ -40,17 +38,16 @@ console.log(selected)
   };
   
 
-  // console.log(Array.from(values))
   
-  //function for generating ai tasks
+  //function for generating AI tasks
   const getAiRes = async () => {
     console.log('Please wait loading...');
     setTextChange('Generating')
+    setShowSkeleton(true)
     if (!user) {
         console.log('No user found');
         return;
     }
-
 
     const data = {
         userId: user.id,
@@ -64,6 +61,7 @@ console.log(selected)
     try {
       const response = await GlobalApi.getAiResponse(data);
       setTextChange('Generate')
+      setShowSkeleton(false)
         console.log('Response:', response);
         console.log('Response data:', response.data.task.task);
         const parsedTasks = parseAIResponse(response.data.task.task);
@@ -73,8 +71,8 @@ console.log(selected)
     } catch (error) {
       console.error('Error in getAiRes:', error);
       setTextChange('Generate')
+      setShowSkeleton(false)
       openModal()
-      setShowErrModal(true)
         if (error.response) {
             console.error('Error response:', error.response.data.message);
             console.error('Error status:', error.response.status);
@@ -83,11 +81,11 @@ console.log(selected)
     }
 };
   
-//   const handleSelectionChange = (e) => {
-//     setValues(new Set(e.target.value.split(",")));
-// };
+
   return (
-    <div className='z-0 flex items-center justify-center flex-col'>
+    <div className=''>
+    
+      <div className='flex items-center justify-center text-center flex-col'>
       <h1 className='text-2xl font-semibold'>AI Tasky</h1>
       <h2 className='text-sm'>Generate A Task Here</h2>
       <ModalError openModal={openModal} />
@@ -101,13 +99,20 @@ console.log(selected)
       <DurationSelect handleDurationSelectionChange={handleDurationSelectionChange} durationInput={durationInput} />
 
       <button onClick={getAiRes} className="btn btn-primary mt-5"><Sparkles /> {textChange}</button>
-      
-      {/* <SelectInterestInput
-        handleSelectionChange={handleSelectionChange}
-        values={values} /> */}
+      </div>
+     
       
      
-      <AITaskCard tasks={tasks} />
+      {showSkeleton ? 
+        (<div className='flex items-center gap-3 p-3 flex-wrap justify-center'>
+         <div className="skeleton h-60 w-1/2"></div>
+      <div className="skeleton h-60 w-1/2"></div>
+      <div className="skeleton h-60 w-1/2"></div>
+        </div>)
+        : 
+        (<AITaskCard tasks={tasks} />)
+        }
+      
 
     </div>
   )
