@@ -11,7 +11,7 @@ import TestSelect from './_components/TestSelect';
 
 const Page = () => {
   const {user} = useUser()
-  const [values, setValues] = useState(new Set([]));
+  // const [values, setValues] = useState(new Set([]));
   const [tasks, setTasks] = useState([]);
   const [durationInput, setDurationInput] = useState("");
   const [selected, setSelected] = useState([])
@@ -19,10 +19,8 @@ const Page = () => {
   // Handle option selection
 const toggleSelect = (option) => {
    if (selected.includes(option)) {
-       // If already selected, remove it
        setSelected(selected.filter((item) => item !== option));
    } else {
-       // Otherwise, add it
        setSelected([...selected, option]);
    }
 };
@@ -34,8 +32,9 @@ console.log(selected)
   };
   
 
-  console.log(Array.from(values))
+  // console.log(Array.from(values))
   
+  //function for generating ai tasks
   const getAiRes = async () => {
     console.log('Please wait loading...');
     
@@ -71,9 +70,9 @@ console.log(selected)
     }
 };
   
-  const handleSelectionChange = (e) => {
-    setValues(new Set(e.target.value.split(",")));
-};
+//   const handleSelectionChange = (e) => {
+//     setValues(new Set(e.target.value.split(",")));
+// };
   return (
     <div className='z-0 flex items-center justify-center flex-col'>
       <h1 className='text-2xl font-semibold'>AI Tasky</h1>

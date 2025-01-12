@@ -3,6 +3,8 @@ import React from "react";
 import moment from 'moment/moment';
 import { Card, CardHeader, CardBody, CardFooter,Chip, Button } from "@nextui-org/react";
 import { Avatar, AvatarGroup } from "@nextui-org/react";
+import {Tooltip} from "@nextui-org/react";
+
 
 
 
@@ -12,7 +14,6 @@ import { Avatar, AvatarGroup } from "@nextui-org/react";
 
 export default function TaskDetails({taskDetails}) {
   const [isFollowed, setIsFollowed] = React.useState(false);
-    // const formatDate = (isoString) => moment(isoString).format('MMMM Do YYYY, h:mm:ss a');
   const formatDate = (isoString) => moment(isoString).format('MMMM Do YYYY');
   
 console.log(taskDetails)
@@ -56,8 +57,6 @@ console.log(taskDetails)
         <CardBody className="px-3 py-0 text-small text-default-400">
               <p>
                 {taskDetails?.description}
-                {/* Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab alias eius dolorum cum! Enim ducimus animi iusto blanditiis, cupiditate mollitia, at voluptate maxime architecto iure illum maiores modi alias numquam! */}
-                {/* Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab alias eius dolorum cum! Enim ducimus animi iusto blanditiis, cupiditate mollitia, at voluptate maxime architecto iure illum maiores modi alias numquam! */}
               </p>
          
         </CardBody>
@@ -67,15 +66,18 @@ console.log(taskDetails)
               
               <div className="flex flex-col">
             <p className="font-semibold text-default-400 text-small">Assigned to:</p>
-                    <div>
-                      Me
+                  <div>
+                 
                   <AvatarGroup isBordered max={3}>
                     {taskDetails?.collaborators.map((item, index) => {
                       return (
-                        <Avatar key={index} size="sm" name={item.email.slice(0, 2)} />
+                        <Tooltip content={item.email}>
+                          <Avatar key={index} size="sm" name={item.email.slice(0, 2)} />
+                          </Tooltip>
                       )
                     })}
-      </AvatarGroup>
+                      </AvatarGroup>
+                
            </div>
                 </div>
                 
