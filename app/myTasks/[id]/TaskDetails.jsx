@@ -7,17 +7,11 @@ import {Tooltip} from "@nextui-org/react";
 
 
 
-
-
-
-
-
 export default function TaskDetails({taskDetails}) {
   const [isFollowed, setIsFollowed] = React.useState(false);
   const formatDate = (isoString) => moment(isoString).format('MMMM Do YYYY');
   
 console.log(taskDetails)
-
 
 
     return (
@@ -36,7 +30,6 @@ console.log(taskDetails)
                   </div>
   
                   <div className="flex gap-3">
-                    {/* <Chip color="primary" size="sm">{taskDetails?.status}</Chip> */}
                     <Chip color="danger" size="sm">{taskDetails?.priority}</Chip>
                   </div>
                 </div>
@@ -106,7 +99,6 @@ console.log(taskDetails)
       </thead>
       <tbody>
        
-                  
                   {taskDetails?.activityLogs.map((item, index) => {
                     return <tr key={index} className="bg-base-200">
                       <td>{item.action}</td>
@@ -122,8 +114,6 @@ console.log(taskDetails)
             </div>
           
         )
-          
-      
       
       :
 
@@ -140,10 +130,6 @@ console.log(taskDetails)
           
       
                   }
-
-      {/* sdfsfssgggg
-      di */}
-        
     </div>
   )
 }

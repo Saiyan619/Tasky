@@ -6,7 +6,6 @@ import Link from 'next/link';
 
 
 const Page = () => {
-  const [aiResponseText, setAiResponseText] = useState('')
 
   return (
     <div>
@@ -28,7 +27,6 @@ const Page = () => {
           </div>
         </div>
       </div>
-      {/* <p>{aiResponseText}</p> */}
 
     </div>
   )

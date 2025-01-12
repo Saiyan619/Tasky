@@ -8,6 +8,8 @@ import AITaskCard from './_components/AITaskCard';
 import { useUser } from '@clerk/nextjs';
 import DurationSelect from './_components/DurationSelect';
 import TestSelect from './_components/TestSelect';
+import { Sparkles } from 'lucide-react';
+import ModalError from './_components/ModalError';
 
 const Page = () => {
   const {user} = useUser()
@@ -15,6 +17,12 @@ const Page = () => {
   const [tasks, setTasks] = useState([]);
   const [durationInput, setDurationInput] = useState("");
   const [selected, setSelected] = useState([])
+  const [textChange, setTextChange] = useState('Generate')
+  const [showErrModal, setShowErrModal] = useState(false)
+
+  const openModal = () => {
+    document.getElementById('my_modal_1').showModal();
+  };
 
   // Handle option selection
 const toggleSelect = (option) => {
@@ -37,11 +45,12 @@ console.log(selected)
   //function for generating ai tasks
   const getAiRes = async () => {
     console.log('Please wait loading...');
-    
+    setTextChange('Generating')
     if (!user) {
         console.log('No user found');
         return;
     }
+
 
     const data = {
         userId: user.id,
@@ -53,7 +62,8 @@ console.log(selected)
     console.log('Sending data:', data);
     
     try {
-        const response = await GlobalApi.getAiResponse(data);
+      const response = await GlobalApi.getAiResponse(data);
+      setTextChange('Generate')
         console.log('Response:', response);
         console.log('Response data:', response.data.task.task);
         const parsedTasks = parseAIResponse(response.data.task.task);
@@ -61,9 +71,12 @@ console.log(selected)
         return response.data;
 
     } catch (error) {
-        console.error('Error in getAiRes:', error);
+      console.error('Error in getAiRes:', error);
+      setTextChange('Generate')
+      openModal()
+      setShowErrModal(true)
         if (error.response) {
-            console.error('Error response:', error.response.data);
+            console.error('Error response:', error.response.data.message);
             console.error('Error status:', error.response.status);
         }
         throw error;
@@ -77,6 +90,7 @@ console.log(selected)
     <div className='z-0 flex items-center justify-center flex-col'>
       <h1 className='text-2xl font-semibold'>AI Tasky</h1>
       <h2 className='text-sm'>Generate A Task Here</h2>
+      <ModalError openModal={openModal} />
       <div className='flex items-center justify-center text-center mt-5'>
         <TestSelect
           toggleSelect={toggleSelect}
@@ -86,7 +100,7 @@ console.log(selected)
 
       <DurationSelect handleDurationSelectionChange={handleDurationSelectionChange} durationInput={durationInput} />
 
-      <button onClick={getAiRes} className="btn btn-primary">Generate tasks</button>
+      <button onClick={getAiRes} className="btn btn-primary"><Sparkles /> {textChange}</button>
       
       {/* <SelectInterestInput
         handleSelectionChange={handleSelectionChange}
