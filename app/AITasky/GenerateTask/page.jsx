@@ -7,16 +7,32 @@ import GlobalApi from '@/app/_utils/GlobalApi';
 import AITaskCard from './_components/AITaskCard';
 import { useUser } from '@clerk/nextjs';
 import DurationSelect from './_components/DurationSelect';
+import TestSelect from './_components/TestSelect';
 
 const Page = () => {
   const {user} = useUser()
   const [values, setValues] = useState(new Set([]));
   const [tasks, setTasks] = useState([]);
   const [durationInput, setDurationInput] = useState("");
+  const [selected, setSelected] = useState([])
+
+  // Handle option selection
+const toggleSelect = (option) => {
+   if (selected.includes(option)) {
+       // If already selected, remove it
+       setSelected(selected.filter((item) => item !== option));
+   } else {
+       // Otherwise, add it
+       setSelected([...selected, option]);
+   }
+};
+
+console.log(selected)
 
   const handleDurationSelectionChange = (e) => {
       setDurationInput(e.target.value);
   };
+  
 
   console.log(Array.from(values))
   
@@ -30,7 +46,7 @@ const Page = () => {
 
     const data = {
         userId: user.id,
-      interests: Array.from(values),
+      interests: selected,
       duration:durationInput
         
     };
@@ -59,18 +75,26 @@ const Page = () => {
     setValues(new Set(e.target.value.split(",")));
 };
   return (
-    <div className='z-0'>
-      <h1>Generate Your Task Here</h1>
+    <div className='z-0 flex items-center justify-center flex-col'>
+      <h1 className='text-2xl font-semibold'>AI Tasky</h1>
+      <h2 className='text-sm'>Generate A Task Here</h2>
+      <div className='flex items-center justify-center text-center mt-5'>
+        <TestSelect
+          toggleSelect={toggleSelect}
+          selected={selected}
+          />
+      </div>
+
+      <DurationSelect handleDurationSelectionChange={handleDurationSelectionChange} durationInput={durationInput} />
 
       <button onClick={getAiRes} className="btn btn-primary">Generate tasks</button>
       
-      <SelectInterestInput
+      {/* <SelectInterestInput
         handleSelectionChange={handleSelectionChange}
-        values={values} />
-      <DurationSelect handleDurationSelectionChange={handleDurationSelectionChange} durationInput={durationInput} />
+        values={values} /> */}
+      
      
       <AITaskCard tasks={tasks} />
-
 
     </div>
   )
