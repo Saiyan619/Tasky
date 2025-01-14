@@ -42,7 +42,7 @@ console.log(selected)
   //function for generating AI tasks
   const getAiRes = async () => {
     console.log('Please wait loading...');
-    setTextChange('Generating')
+    setTextChange('Generating...')
     setShowSkeleton(true)
     if (!user) {
         console.log('No user found');
@@ -89,12 +89,15 @@ console.log(selected)
       <h1 className='text-2xl font-semibold'>AI Tasky</h1>
       <h2 className='text-sm'>Generate A Task Here</h2>
       <ModalError openModal={openModal} />
-      <div className='flex items-center justify-center text-center mt-5'>
+
+        <div className='mt-5'>
+        <p>Choose your Interests</p>
+      <div className='flex items-center justify-center text-center'>
         <TestSelect
           toggleSelect={toggleSelect}
-          selected={selected}
-          />
+          selected={selected}  />
       </div>
+        </div>
 
       <DurationSelect handleDurationSelectionChange={handleDurationSelectionChange} durationInput={durationInput} />
 
