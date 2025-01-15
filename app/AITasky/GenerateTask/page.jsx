@@ -46,8 +46,9 @@ console.log(selected)
     setShowSkeleton(true)
     if (!user) {
         console.log('No user found');
-        return;
+        return
     }
+    // this will pass
 
     const data = {
         userId: user.id,
