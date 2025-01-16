@@ -111,7 +111,7 @@ logger
                     Close
                   </Button>
                   <Button onClick={getFilteredTask}  color="primary">
-                    Action
+                    Find Task
                   </Button>
                 </ModalFooter>
               </>

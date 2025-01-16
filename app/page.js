@@ -29,6 +29,7 @@ export default function Home() {
 
     setAllowClick(true);
 
+      
     try {
       const data = {
         clerkId: user?.id,
