@@ -27,7 +27,6 @@ const Page = () => {
         const resp = await GlobalApi.getStatistics(user?.id);
           console.log('Statistics:', resp.data);
           setStats(resp.data)
-          // return resp.data;
         }
       } catch (error) {
         console.error('Error fetching statistics:', error);
@@ -38,7 +37,7 @@ const Page = () => {
 
   return (
     <div className=''>
-      {/* this the home page */}
+      {/* this the home page i.e the first user first sees after login/signup*/}
       <p className='text-center'>Welcome😁, {user?.fullName}</p>
 
 
